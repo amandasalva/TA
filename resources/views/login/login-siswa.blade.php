@@ -45,7 +45,6 @@
                 <button class="btn d-grid w-100" style="background-color: #1d751d; color: white" type="submit">Login </button>
               </div>
             </form>
-
           </div>
         </div>
         <!-- /Register -->
