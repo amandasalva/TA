@@ -9,7 +9,12 @@
           <div class="card-body">
             <!-- Logo -->
             <div class="app-brand justify-content-center">
-                <span class="app-brand-text demo text-body fw-bolder">Silahkan Login</span>
+              <div class="app-brand-link ml-2">
+                <span class="app-brand-logo demo">
+                  <img src="../img/logo.ico" alt="Logo">
+                </span>
+              </div>
+              <span class="app-brand-text demo fw-bolder" style="color:#1ddb1d">Silahkan Login</span>
               </a>
             </div>
             <!-- /Logo -->
@@ -42,7 +47,8 @@
                 </div>
               </div>
               <div class="mb-3">
-                <button class="btn d-grid w-100" style="background-color: #1d751d; color: white" type="submit">Login </button>
+                <button class="btn d-grid w-100" style="background: linear-gradient(to bottom right, #00cc00 0%, #00ffff 96%);
+                color: white; font-weight:bold;" type="submit">Login </button>
               </div>
             </form>
           </div>

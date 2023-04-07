@@ -472,7 +472,7 @@ section {
     transition: 0.5s;
     color: #fff;
     background: #12af12;
-    box-shadow: 0px 5px 30px rgba(4, 148, 4, 0.973);
+    box-shadow: 0px 5px 10px rgba(4, 148, 4, 0.973);
 }
 
 .hero .btn-get-started span {
