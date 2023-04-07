@@ -8,15 +8,16 @@
         <div class="card">
           <div class="card-body">
             <!-- Logo -->
-            <div class="app-brand justify-content-center">
-              <div class="app-brand-link ml-2">
+            <div class="app-brand justify-content-center gap-2">
+              <div class="app-brand-link">
                 <span class="app-brand-logo demo">
                   <img src="../img/logo.ico" alt="Logo">
                 </span>
               </div>
-              <span class="app-brand-text demo fw-bolder" style="color:#1ddb1d">Silahkan Login</span>
+              <span class="app-brand-text demo fw-bolder" style="color:#1d751d">Siakas</span>
               </a>
             </div>
+            <p align="center">Silahkan masuk untuk mengakses aplikasi</p>
             <!-- /Logo -->
             <form id="formAuthentication" class="mb-3" action="index.html" method="POST">
               <div class="mb-3">
