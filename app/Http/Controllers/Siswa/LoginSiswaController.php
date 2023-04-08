@@ -37,8 +37,8 @@ class LoginSiswaController extends Controller
         if ($check == 1) {
             if (Auth::attempt(['username' => $request->username, 'password' => $request->password])) {
                $request->session()->regenerate();
-            //    return back()->with('message', 'Anda berhasil login!');
-               return redirect()->intended('siswa/beranda');
+               return back()->with('message', 'Anda berhasil login!');
+            //    return redirect()->intended('siswa/beranda')->with(['message', 'Anda berhasil login!']);
             } else {
                 return back()->withErrors([
                     'username' => 'Maaf nama pengguna atau kata sandi anda salah!',
