@@ -56,6 +56,8 @@
     <!-- Page CSS -->
     <!-- Page -->
     <link rel="stylesheet" href="../assets/vendor/css/pages/page-auth.css" />
+    {{-- toast --}}
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css" integrity="sha512-vKMx8UnXk60zUwyUnUPM3HbQo8QfmNx7+ltw8Pm5zLusl1XIfwcxo8DbWCqMGKaWeNxWA8yrx5v3SaVpMvR3CA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
     <!-- Helpers -->
     <script src="../assets/vendor/js/helpers.js"></script>
 
@@ -86,9 +88,19 @@
     <!-- Main JS -->
     <script src="../assets/js/main.js"></script>
 
-    <!-- Page JS -->
-
+    <!-- toast -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js" integrity="sha512-VEd+nq25CkR676O+pLBnDW09R7VQX9Mdiij052gVCp5yVH3jGtH70Ho/UUv4mJDsEdTvqRCFZg0NKGiojGnUCw==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
     <!-- Place this tag in your head or just before your close body tag. -->
     <script async defer src="https://buttons.github.io/buttons.js"></script>
+
+    @if (Session::has('message'))
+        <script>
+          toastr.options = {
+            'progressBar' : true,
+            'closeButton' : true,
+          }
+          toastr.success("{{ Session::get('message') }}", 'Sukses!');
+        </script>
+    @endif
   </body>
 </html>

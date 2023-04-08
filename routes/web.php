@@ -21,5 +21,6 @@ Route::get('/', function () {
 Route::prefix('/siswa')->group(function () {
     Route::controller(LoginSiswaController::class)->group(function () {
         Route::get('/login', 'index')->name('siswa/login');
+        Route::post('/proses/login', 'prosesLogin')->name('siswa/proses/login');
     });
 });

@@ -19,17 +19,27 @@
             </div>
             <p align="center">Silahkan masuk untuk mengakses aplikasi</p>
             <!-- /Logo -->
-            <form id="formAuthentication" class="mb-3" action="index.html" method="POST">
+            <form class="mb-3" action="{{ route('siswa/proses/login') }}" method="POST">
+              @csrf
               <div class="mb-3">
-                <label for="email" class="form-label">Nama Pengguna</label>
+                <label for="username" class="form-label">Nama Pengguna</label>
                 <input
                   type="text"
-                  class="form-control"
-                  id="email"
-                  name="email-username"
+                  class="form-control
+                  @error('username')
+                      is-invalid
+                  @enderror"
+                  name="username"
                   placeholder="Masukkan nama pengguna"
+                  value="{{ old('username') }}"
+                  autocomplete="off"
                   autofocus
                 />
+                @error('username')
+                    <div class="invalid-feedback">
+                      {{ $message }}
+                    </div>
+                @enderror
               </div>
               <div class="mb-3 form-password-toggle">
                 <div class="d-flex justify-content-between">
@@ -38,13 +48,20 @@
                 <div class="input-group input-group-merge">
                   <input
                     type="password"
-                    id="password"
-                    class="form-control"
+                    class="form-control
+                    @error('password')
+                      is-invalid
+                    @enderror"
                     name="password"
                     placeholder="&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;"
                     aria-describedby="password"
                   />
                   <span class="input-group-text cursor-pointer"><i class="bx bx-hide"></i></span>
+                  @error('password')
+                      <div class="invalid-feedback">
+                        {{ $message }}
+                      </div>
+                  @enderror
                 </div>
               </div>
               <div class="mb-3">
