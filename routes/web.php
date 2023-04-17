@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Pegawai\LoginPegawaiController;
 use App\Http\Controllers\Siswa\LoginSiswaController;
 use Illuminate\Support\Facades\Route;
 
@@ -18,9 +19,18 @@ Route::get('/', function () {
     return view('layout.landpage');
 });
 
-Route::prefix('/siswa')->group(function () {
-    Route::controller(LoginSiswaController::class)->group(function () {
+Route::prefix('/siswa')->group(function() {
+    Route::controller(LoginSiswaController::class)->group(function() {
         Route::get('/login', 'index')->name('siswa/login');
         Route::post('/proses/login', 'prosesLogin')->name('siswa/proses/login');
+        Route::get('/beranda', function(){
+            return view('welcome');
+        })->name('beranda');
+    });
+});
+
+Route::prefix('/pegawai')->group(function() {
+    Route::controller(LoginPegawaiController::class)->group(function() {
+        Route::get('/login', 'index')->name('pegawai/login');
     });
 });

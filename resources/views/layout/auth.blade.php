@@ -99,7 +99,13 @@
             'progressBar' : true,
             'closeButton' : true,
           }
-          toastr.success("{{ Session::get('message') }}", 'Sukses!');
+          toastr.success("{{ Session::get('message') }}", 'Sukses!', {
+            timeOut: 2000,
+            fadeOut: 2000,
+            onHidden: function () {
+              window.location.href = '/siswa/beranda';
+            }
+          });
         </script>
     @endif
   </body>
