@@ -1,6 +1,8 @@
 <?php
 
 use App\Http\Controllers\Pegawai\BerandaBendaharaController;
+use App\Http\Controllers\Pegawai\BerandaGuruController;
+use App\Http\Controllers\Pegawai\BerandaKepsekController;
 use App\Http\Controllers\Pegawai\LoginPegawaiController;
 use App\Http\Controllers\Siswa\BerandaSiswaController;
 use App\Http\Controllers\Siswa\LoginSiswaController;
@@ -21,9 +23,10 @@ Route::get('/', function () {
     return view('layout.landpage');
 });
 
+Route::post('/logout', [LoginSiswaController::class, 'proses_logout'])->name('logout');
 Route::prefix('/siswa')->group(function() {
     Route::controller(LoginSiswaController::class)->group(function() {
-        Route::get('/login', 'index')->name('siswa/login');
+        Route::get('/login', 'index')->middleware('guest:web')->name('siswa/login');
         Route::post('/proses/login', 'prosesLogin')->name('siswa/proses/login');
     });
     Route::middleware('auth', 'role:Siswa')->group(function() {
@@ -34,7 +37,7 @@ Route::prefix('/siswa')->group(function() {
 
 Route::prefix('/pegawai')->group(function() {
     Route::controller(LoginPegawaiController::class)->group(function() {
-        Route::get('/login', 'index')->name('pegawai/login');
+        Route::get('/login', 'index')->middleware('guest:web')->name('pegawai/login');
         Route::post('/proses/login', 'prosesLogin')->name('pegawai/proses/login');
     });
 });
@@ -42,6 +45,20 @@ Route::prefix('/bendahara')->group(function() {
     Route::controller(BerandaBendaharaController::class)->group(function() {
         Route::middleware('auth', 'role:Bendahara')->group(function() {
             Route::get('/beranda', 'index')->name('bendahara/beranda');
+        });
+    });
+});
+Route::prefix('/guru')->group(function() {
+    Route::controller(BerandaGuruController::class)->group(function() {
+        Route::middleware(['auth', 'role:Guru'])->group(function () {
+            Route::get('/beranda', 'index')->name('guru/beranda');
+        });
+    });
+});
+Route::prefix('/kepalasekolah')->group(function() {
+    Route::controller(BerandaKepsekController::class)->group(function() {
+        Route::middleware(['auth', 'role:KepSek'])->group(function () {
+            Route::get('/beranda', 'index')->name('kepalasekolah/beranda');
         });
     });
 });

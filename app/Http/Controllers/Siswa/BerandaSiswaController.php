@@ -9,6 +9,6 @@ class BerandaSiswaController extends Controller
 {
     public function index()
     {
-        return view('siswa.siswa-beranda');
+        return view('u_siswa.siswa-beranda');
     }
 }
