@@ -56,13 +56,6 @@
     <script src="../../../assets/js/config.js"></script>
 
     <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/v/bs5/dt-1.13.1/datatables.min.css"/>
-
-    {{-- <script src="bootstrap-datepicker/locales/bootstrap-datepicker.id.min.js"></script> --}}
-    {{-- <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.10.6/locale/id.js"></script> --}}
-    {{-- <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.18.1/moment.js"></script> --}}
-
-
-
   </head>
 
   <body>

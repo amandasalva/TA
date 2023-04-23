@@ -17,7 +17,7 @@
           </div>
           <p align="center">Silahkan masuk untuk mengakses aplikasi</p>
           <!-- /Logo -->
-          <form class="mb-3" action="{{ route('siswa/proses/login') }}" method="POST">
+          <form class="mb-3" action="{{ route('siswa.proses.login') }}" method="POST">
             @csrf
             <div class="mb-3">
               <label for="username" class="form-label">Nama Pengguna</label>

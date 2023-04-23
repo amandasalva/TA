@@ -2,6 +2,7 @@
 
 namespace App\Http\Middleware;
 
+use App\Models\User;
 use App\Providers\RouteServiceProvider;
 use Closure;
 use Illuminate\Http\Request;
@@ -21,7 +22,15 @@ class RedirectIfAuthenticated
 
         foreach ($guards as $guard) {
             if (Auth::guard($guard)->check()) {
-                return redirect(RouteServiceProvider::HOME);
+                if (Auth::user()->role_id == 2) {
+                    return redirect(RouteServiceProvider::HOME);
+                } elseif (Auth::user()->role_id == 1) {
+                    return redirect('bendahara/beranda');
+                } elseif (Auth::user()->role_id == 3) {
+                    return redirect('guru/beranda');
+                } elseif (Auth::user()->role_id == 4) {
+                    return redirect('kepalasekolah/beranda');
+                }
             }
         }
 
