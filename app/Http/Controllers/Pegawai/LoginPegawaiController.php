@@ -23,8 +23,13 @@ class LoginPegawaiController extends Controller
         // ]);
         $request->validate([
             'username' => 'required',
-            'password' => 'required',
-        ]);
+            'password' => 'required|min:8',
+        ],
+    [
+        'username.required' => 'Nama pengguna tidak boleh kosong!',
+        'password.required' => 'Kata sandi tidak boleh kosong!',
+        'password.min' => 'Kata sandi minimal 8 karakter!',
+    ]);
 
         $username = $request->username;
         $password = $request->password;
