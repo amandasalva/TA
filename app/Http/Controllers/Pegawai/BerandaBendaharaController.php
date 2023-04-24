@@ -11,13 +11,11 @@ class BerandaBendaharaController extends Controller
 {
     public function index()
     {
-        // $user_id = Auth::user()->id;
+        $user_id = Auth::user()->id;
         // dd(Auth::user()->id);
-        // $data = Pegawai::where('user_id', '=', $user_id)->first();
+        $data = Pegawai::where('user_id', '=', $user_id)->first();
         // dd($data);
         // $bendahara = Pegawai::count();
-        return view('u_bendahara.bendahara-beranda'
-        // , compact('bendahara', 'data')
-    );
+        return view('u_bendahara.bendahara-beranda', compact('data'));
     }
 }

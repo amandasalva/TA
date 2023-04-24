@@ -20,4 +20,9 @@ class Pegawai extends Model
         'status',
         'image',
     ];
+
+    public function users()
+    {
+        return $this->belongsTo(User::class);
+    }
 }

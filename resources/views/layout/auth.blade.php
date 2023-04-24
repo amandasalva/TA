@@ -93,35 +93,5 @@
     <!-- Place this tag in your head or just before your close body tag. -->
     <script async defer src="https://buttons.github.io/buttons.js"></script>
 
-    {{-- @if (Session::has('message-login-siswa'))
-        <script>
-          toastr.options = {
-            'progressBar' : true,
-            'closeButton' : true,
-          }
-          toastr.success("{{ Session::get('message') }}", 'Sukses!', {
-            timeOut: 2000,
-            fadeOut: 2000,
-            onHidden: function () {
-              window.location.href = '/siswa/beranda';
-            }
-          });
-        </script>
-
-    @elseif(Session::has('message-login-bendahara'))
-    <script>
-      toastr.options = {
-        'progressBar' : true,
-        'closeButton' : true,
-      }
-      toastr.success("{{ Session::get('message') }}", 'Sukses!', {
-        timeOut: 2000,
-        fadeOut: 2000,
-        onHidden:function () {
-          window.location.href = '/bendahara/beranda';
-        }
-      });
-    </script>
-    @endif --}}
   </body>
 </html>

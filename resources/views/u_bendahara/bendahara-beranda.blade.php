@@ -1,1 +1,1 @@
-@extends('layout.main', ['title' => 'Beranda Bendahara'])
+@extends('layout.main', ['title' => 'Beranda Bendahara', 'foto_profil' => $data->image])

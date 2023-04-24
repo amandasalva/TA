@@ -131,7 +131,11 @@
                     <li class="nav-item navbar-dropdown dropdown-user dropdown">
                         <a class="nav-link dropdown-toggle hide-arrow" href="javascript:void(0);" data-bs-toggle="dropdown">
                             <div class="avatar avatar-online">
-                              {{-- <img src="{{ url('storage/foto_profil/'.$foto_profil) }}" alt class="w-px-40 h-auto rounded-circle" /> --}}
+                              @if (Auth::user()->image)
+                              <img src="{{ url('storage/foto_profil/'.$foto_profil) }}" alt class="w-px-40 h-auto rounded-circle" />
+                              @else
+                              <img src="{{ url('images/user-default.jpg'.$foto_profil) }}" alt="w-px-40 h-auto rounded-circle">                              
+                              @endif
                             </div>
                         </a>
                         <ul class="dropdown-menu dropdown-menu-end">
@@ -140,7 +144,11 @@
                                     <div class="d-flex">
                                         <div class="flex-shrink-0 me-3">
                                             <div class="avatar avatar-online">
-                                                {{-- <img src="{{ url('storage/foto_profil/'.$foto_profil) }}" alt class="w-px-40 h-auto rounded-circle" /> --}}
+                                              @if (Auth::user()->image)
+                                              <img src="{{ url('storage/foto_profil/'.$foto_profil) }}" alt class="w-px-40 h-auto rounded-circle" />
+                                              @else
+                                              <img src="{{ url('images/user-default.jpg'.$foto_profil) }}" alt="w-px-40 h-auto rounded-circle">                              
+                                              @endif
                                             </div>
                                         </div>
                                         <div class="flex-grow-1 align-self-center">
@@ -155,37 +163,30 @@
                             <li>
                                 <a class="dropdown-item" href="#">
                                     <i class="bx bx-user me-2"></i>
-                                    <span class="align-middle">My Profile</span>
+                                    <span class="align-middle">Profil</span>
                                 </a>
                             </li>
                             <li>
                                 <div class="dropdown-divider"></div>
                             </li>
-                            {{-- <li>
-                                <a class="dropdown-item" href="{{ route('siswa/logout') }}">
+                            <li>
+                                <a class="dropdown-item" onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
                                     <i class="bx bx-power-off me-2"></i>
-                                    <span class="align-middle">Log Out</span>
+                                    <span class="align-middle" style="cursor: pointer;">Keluar</span>
                                 </a>
-                            </li> --}}
+                                <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
+                                    @csrf
+                               </form>
+                            </li>
                         </ul>
                     </li>
                 </ul>
-                <a class="dropdown-item"  style="color: red;" onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
-                    <i class="icon-mid bi bi-box-arrow-left me-2"></i>
-                    {{ __('Keluar') }}
-                </a>
-                <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
-                    @csrf
-                </form>
             </div>
         </nav>
           <!-- Navbar -->
-          
-
+       
          @yield('content')
          
-
-
           <!-- Footer Start -->
     <!-- Footer -->
     <footer class="content-footer footer bg-footer-theme">
