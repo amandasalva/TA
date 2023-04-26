@@ -31,7 +31,7 @@ class UserSeeder extends Seeder
                 'role_id' => '3',
             ],
             [
-                'username' => 'kepsek',
+                'username' => 'kepala sekolah',
                 'password' => Hash::make('kepsek1234'),
                 'role_id' => '4',
             ],

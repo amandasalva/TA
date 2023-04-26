@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\LoginController;
+use App\Http\Controllers\Pegawai\BendaharaDataSiswaController;
 use App\Http\Controllers\Pegawai\BerandaBendaharaController;
 use App\Http\Controllers\Pegawai\BerandaGuruController;
 use App\Http\Controllers\Pegawai\BerandaKepsekController;
@@ -44,9 +45,12 @@ Route::prefix('/pegawai')->group(function() {
     // });
 });
 Route::prefix('/bendahara')->group(function() {
-    Route::controller(BerandaBendaharaController::class)->group(function() {
-        Route::middleware('auth', 'role:Bendahara')->group(function() {
+    Route::middleware('auth', 'role:Bendahara')->group(function() {
+        Route::controller(BerandaBendaharaController::class)->group(function() {
             Route::get('/beranda', 'index')->name('bendahara.beranda');
+        });
+        Route::controller(BendaharaDataSiswaController::class)->group(function() {
+            Route::get('/data-siswa', 'index')->name('bendahara.data.siswa');
         });
     });
 });

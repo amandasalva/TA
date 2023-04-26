@@ -30,7 +30,7 @@
 
     <!-- Icons. Uncomment required icon fonts -->
     <link rel="stylesheet" href="../../../assets/vendor/fonts/boxicons.css" />
-    <link rel="stylesheet" href="../../../assets/vendor/fonts/fontawesome.css" />
+    {{-- <link rel="stylesheet" href="../../../assets/vendor/fonts/fontawesome.css" /> --}}
 
     <!-- Core CSS -->
     <link rel="stylesheet" href="../../../assets/vendor/css/core.css" class="template-customizer-core-css" />
@@ -39,8 +39,8 @@
 
     <!-- Vendors CSS -->
     <link rel="stylesheet" href="../../../assets/vendor/libs/perfect-scrollbar/perfect-scrollbar.css" />
-    <link rel="stylesheet" href="../../../assets/vendor/libs/flatpickr/flatpickr.css" />
-    <link rel="stylesheet" href="../../../assets/vendor/libs/bootstrap-datepicker/bootstrap-datepicker.css" />
+    {{-- <link rel="stylesheet" href="../../../assets/vendor/libs/flatpickr/flatpickr.css" /> --}}
+    {{-- <link rel="stylesheet" href="../../../assets/vendor/libs/bootstrap-datepicker/bootstrap-datepicker.css" /> --}}
 
 
 
@@ -79,40 +79,59 @@
           </div>
 
           <div class="menu-inner-shadow"></div>
-
+          
           <ul class="menu-inner py-1">
-            <!-- Dashboard -->
-            <li class="menu-item">
-              <a href="" class="menu-link">
-                <i class="menu-icon tf-icons bx bx-home"></i>
+            <li class="menu-item {{  $active == 'beranda' ? 'active' : ''  }}">
+              <a href="{{ route('bendahara.beranda') }}" class="menu-link">
+                <i class="menu-icon tf-icons bx bxs-home"></i>
                 <div data-i18n="Analytics">Beranda</div>
               </a>
-            </li>
-            
-            {{-- <li class="menu-item {{ $active == 'data-siswa' ? 'active' : '' }}"> --}}
-              {{-- <a href="{{ route('bendahara/data/siswa') }}" class="menu-link"> --}}
+            </li> 
+            @if (Auth::user()->role_id == 1)
+            <li class="menu-item {{ $active == 'data-siswa' ? 'active' : '' }}">
+              <a href="{{ route('bendahara.data.siswa') }}" class="menu-link">
                 <i class="menu-icon tf-icons bx bxs-user-detail"></i>
                 <div data-i18n="Analytics">Data Siswa</div>
               </a>
             </li>
-            {{-- <li class="menu-item {{ $active == 'data-guru' ? 'active' : '' }}"> --}}
-              {{-- <a href="{{ route('bendahara/data/guru') }}" class="menu-link"> --}}
-                <i class="menu-icon tf-icons bx bx-user-check"></i>
+
+            <li class="menu-item {{ $active == 'data-guru' ? 'active' : '' }}">
+              <a href="#" class="menu-link">
+                <i class="menu-icon tf-icons bx bxs-user-check"></i>
                 <div data-i18n="Analytics">Data Guru</div>
               </a>
             </li>
-            <li class="menu-item">
+
+            <li class="menu-item {{ $active == 'jenis-trans' ? 'active' : '' }}">
               <a href="#" class="menu-link">
-                <i class="menu-icon tf-icons bx bx-donate-heart"></i>
+                <i class="menu-icon tf-icons bx bxs-donate-heart"></i>
                 <div data-i18n="Analytics">Data Jenis Transaksi</div>
               </a>
             </li>
-            {{-- <li class="menu-item {{ $active == 'pendaftaran' ? 'active' : '' }}"> --}}
-              {{-- <a href="{{ route('bendahara/pendaftaran/siswa') }}" class="menu-link"> --}}
-                <i class="menu-icon tf-icons bx bx-book-add"></i>
+
+            <li class="menu-item {{ $active == 'pendaftaran' ? 'active' : '' }}">
+              <a href="#" class="menu-link">
+                <i class="menu-icon tf-icons bx bxs-user-plus"></i>
                 <div data-i18n="Analytics">Pendaftaran</div>
               </a>
             </li>
+
+            <li class="menu-item {{ $active == 'pendaftaran' ? 'active' : '' }}">
+              <a href="#" class="menu-link">
+                <i class='menu-icon tf-icons bx bxs-bar-chart-alt-2'></i>
+                <div data-i18n="Analytics">Laporan</div>
+              </a>
+            </li>
+
+            @elseif (Auth::user()->role_id == 3)
+            <li class="menu-item {{ $active == 'transaksi' ? 'active' : '' }}">
+              <a href="#" class="menu-link">
+                <i class="menu-icon tf-icons bx bx-book-add"></i>
+                <div data-i18n="Analytics">Transaksi</div>
+              </a>
+            </li>
+            @endif
+            
           </ul>
         </aside>
         <!-- / Menu -->
@@ -134,7 +153,7 @@
                               @if (Auth::user()->image)
                               <img src="{{ url('storage/foto_profil/'.$foto_profil) }}" alt class="w-px-40 h-auto rounded-circle" />
                               @else
-                              <img src="{{ url('images/user-default.jpg'.$foto_profil) }}" alt="w-px-40 h-auto rounded-circle">                              
+                              <img src="{{ url('images/user-default.jpg'.$foto_profil) }}" alt class="w-px-40 h-auto rounded-circle" />                              
                               @endif
                             </div>
                         </a>
@@ -147,7 +166,7 @@
                                               @if (Auth::user()->image)
                                               <img src="{{ url('storage/foto_profil/'.$foto_profil) }}" alt class="w-px-40 h-auto rounded-circle" />
                                               @else
-                                              <img src="{{ url('images/user-default.jpg'.$foto_profil) }}" alt="w-px-40 h-auto rounded-circle">                              
+                                              <img src="{{ url('images/user-default.jpg'.$foto_profil) }}" alt class="w-px-40 h-auto rounded-circle" />                              
                                               @endif
                                             </div>
                                         </div>
@@ -238,8 +257,8 @@
 
     <script type="text/javascript" src="https://cdn.datatables.net/v/bs5/dt-1.13.1/datatables.min.js"></script>
 
-    <script src="../../../assets/vendor/libs/bootstrap-datepicker/bootstrap-datepicker.js"></script>
-    <script src="../../../assets/vendor/libs/flatpickr/flatpickr.js"></script>
+    {{-- <script src="../../../assets/vendor/libs/bootstrap-datepicker/bootstrap-datepicker.js"></script> --}}
+    {{-- <script src="../../../assets/vendor/libs/flatpickr/flatpickr.js"></script> --}}
 
 
     {{-- <script type="text/javascript">
