@@ -2839,8 +2839,12 @@ textarea.form-control-lg {
         transition: none;
     }
 }
+.btn-green {
+    background-color: #12af12;
+    color: white;
+}
 .btn:hover {
-    color: #697a8d;
+    color: yellow;
 }
 .btn-check:focus + .btn,
 .btn:focus {

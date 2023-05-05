@@ -241,6 +241,19 @@ button.list-group-item-primary.active {
     color: #435971;
 }
 
+.btn-purple {
+    color: #fff;
+    background-color: #581c60;
+    border-color: #581c60;
+}
+
+.btn-purple:hover {
+    color: #fff;
+    background-color: #4c0855;
+    border-color: #4c0855;
+    transform: translateY(-1px);
+}
+
 .btn-primary {
     color: #fff;
     background-color: #696cff;

@@ -1,7 +1,10 @@
 <?php
 
 use App\Http\Controllers\LoginController;
+use App\Http\Controllers\Pegawai\BendaharaDataGuru;
+use App\Http\Controllers\Pegawai\BendaharaDataGuruController;
 use App\Http\Controllers\Pegawai\BendaharaDataSiswaController;
+use App\Http\Controllers\Pegawai\BendaharaTahunPelajaranController;
 use App\Http\Controllers\Pegawai\BerandaBendaharaController;
 use App\Http\Controllers\Pegawai\BerandaGuruController;
 use App\Http\Controllers\Pegawai\BerandaKepsekController;
@@ -49,8 +52,19 @@ Route::prefix('/bendahara')->group(function() {
         Route::controller(BerandaBendaharaController::class)->group(function() {
             Route::get('/beranda', 'index')->name('bendahara.beranda');
         });
+        Route::controller(BendaharaTahunPelajaranController::class)->group(function() {
+            Route::get('/tahun/pelajaran', 'index')->name('bendahara.tahun-pelajaran');
+            Route::get('/tambah/tahun/pelajaran', 'create')->name('bendahara.tambah.tahun.pelajaran');
+            Route::post('/tahun-pelajaran', 'store')->name('bendahara.tahun-pelajaran.store');
+            Route::delete('/hapus/data/{id}', 'destroy')->name('bendahara.hapus.data');
+        });
         Route::controller(BendaharaDataSiswaController::class)->group(function() {
-            Route::get('/data-siswa', 'index')->name('bendahara.data.siswa');
+            Route::get('/data/siswa', 'index')->name('bendahara.data.siswa');
+            Route::get('/tambah/siswa', 'create')->name('bendahara.tambah.siswa');
+        });
+        Route::controller(BendaharaDataGuruController::class)->group(function() {
+            Route::get('/data/guru', 'index')->name('bendahara.data.guru');
+            Route::get('/tambah/guru', 'create')->name('bendahara.tambah.guru');
         });
     });
 });

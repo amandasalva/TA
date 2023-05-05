@@ -11,9 +11,10 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('tahun_ajaran', function (Blueprint $table) {
+        Schema::create('tahun_ajarans', function (Blueprint $table) {
             $table->id();
             $table->string('tahun');
+            $table->enum('semester', ['ganjil', 'genap']);
             $table->timestamps();
         });
     }
