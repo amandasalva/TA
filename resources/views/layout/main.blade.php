@@ -12,6 +12,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0"/>
     <title>{{ $title }}</title>
     <meta name="description" content="" />
+    <meta name="csrf-token" content="{{ csrf_token() }}">
 
     <!-- Favicon -->
     <link rel="icon" type="image/x-icon" href="../../../assets/img/favicon/logo.ico" />
@@ -246,6 +247,9 @@
     <script async defer src="https://buttons.github.io/buttons.js"></script>
 
     <script type="text/javascript" src="https://cdn.datatables.net/v/bs5/dt-1.13.1/datatables.min.js"></script>
+    {{-- <script src="sweetalert2.all.min.js"></script> --}}
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
 
     {{-- <script src="../../../assets/vendor/libs/bootstrap-datepicker/bootstrap-datepicker.js"></script> --}}
     {{-- <script src="../../../assets/vendor/libs/flatpickr/flatpickr.js"></script> --}}

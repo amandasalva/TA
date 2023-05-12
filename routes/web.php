@@ -56,6 +56,8 @@ Route::prefix('/bendahara')->group(function() {
             Route::get('/tahun/pelajaran', 'index')->name('bendahara.tahun-pelajaran');
             Route::get('/tambah/tahun/pelajaran', 'create')->name('bendahara.tambah.tahun.pelajaran');
             Route::post('/tahun-pelajaran', 'store')->name('bendahara.tahun-pelajaran.store');
+            Route::get('/edit/tahun-pelajaran/{id}', 'edit')->name('bendahara.edit.tahun.pelajaran');
+            Route::put('/update/tahun-pelajaran/{id}', 'update')->name('bendahara.update.tahun.pelajaran');
             Route::delete('/hapus/data/{id}', 'destroy')->name('bendahara.hapus.data');
         });
         Route::controller(BendaharaDataSiswaController::class)->group(function() {
@@ -65,6 +67,9 @@ Route::prefix('/bendahara')->group(function() {
         Route::controller(BendaharaDataGuruController::class)->group(function() {
             Route::get('/data/guru', 'index')->name('bendahara.data.guru');
             Route::get('/tambah/guru', 'create')->name('bendahara.tambah.guru');
+            Route::post('/store/guru', 'store')->name('bendahara.store.guru');
+            Route::get('/edit/guru/{id}', 'edit')->name('bendahara.edit.guru');
+            Route::put('/update/guru/{id}', 'update')->name('bendahara.update.guru');
         });
     });
 });

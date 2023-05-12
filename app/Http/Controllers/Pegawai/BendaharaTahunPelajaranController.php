@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Pegawai;
 use App\Http\Controllers\Controller;
 use App\Models\Pegawai;
 use App\Models\Tahun_Ajaran;
+use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
@@ -16,14 +17,14 @@ class BendaharaTahunPelajaranController extends Controller
         $user_id = Auth::user()->id;
         $data = Pegawai::where('user_id', '=', $user_id)->first();
         $tahun = Tahun_Ajaran::all();
-        return view('u_bendahara.tahun-pelajaran', compact('data', 'tahun'));
+        return view('u_bendahara.tahunAjaran.tahun-pelajaran', compact('data', 'tahun'));
     }
-
+    
     public function create()
     {
         $user_id = Auth::user()->id;
         $data = Pegawai::where('user_id', '=', $user_id)->first();
-        return view('u_bendahara.tambah-tahun-pelajaran', compact('data'));
+        return view('u_bendahara.tahunAjaran.tambah-tahun-pelajaran', compact('data'));
     }
 
     public function store(Request $request)
@@ -37,23 +38,67 @@ class BendaharaTahunPelajaranController extends Controller
             'semester.required' => 'Semester harus diisi!',
         ]);
 
+        $tahunAjaran = Tahun_Ajaran::where('tahun', $request->tahun)->where('semester', $request->semester)->first();
+        if ($tahunAjaran) {
+            return redirect()->back()->with('error', 'Data sudah ada.');
+        }
         Tahun_Ajaran::create([
             'tahun' => $request->tahun,
             'semester' => $request->semester,
         ]);
-        return redirect('bendahara/tahun/pelajaran')->with('success', 'Data tahun ajaran berhasil di tambahkan.');
+        return redirect('bendahara/tahun/pelajaran')->with('success', 'Data tahun ajaran berhasil di simpan.');
     }
 
-    public function destroy($id)
+    public function edit($id)
     {
-        $data = Tahun_Ajaran::find($id);
-        dd($data);
-        // $data->delete();
-
-        // Tahun_Ajaran::where('id', $id)->delete();
-
-        // DB::table('tahun_ajarans')->where('tahun_ajarans_id', $id)->delete();
-
-        return redirect('bendahara/tahun/pelajaran');
+        $user_id = Auth::user()->id;
+        $data = Pegawai::where('user_id', '=', $user_id)->first();
+        $tahunAjaran = Tahun_Ajaran::find($id);
+        return view('u_bendahara.tahunAjaran.edit-tahun-pelajaran', compact('data', 'tahunAjaran'));
     }
+
+    public function update(Request $request, $id)
+    {
+        $request->validate([
+            'tahun' => 'required',
+            'semester' => 'required',
+        ], 
+        [
+            'tahun.required' => 'Tahun ajaran harus diisi.',
+            'semester.required' => 'Semester harus diisi',
+        ]);
+        
+        $tahunAjaran = Tahun_Ajaran::where('tahun', $request->tahun)->where('semester', $request->semester)->first();
+        if ($tahunAjaran) {
+            return redirect()->back()->with('error', 'Data sudah ada.');
+        }
+        $tahunAjaran = Tahun_Ajaran::find($id);
+        $tahunAjaran->tahun = $request->tahun;
+        $tahunAjaran->semester = $request->semester;
+        // dd($tahunAjaran);
+        $tahunAjaran->update();
+        return redirect('bendahara/tahun/pelajaran')->with('success', 'Data berhasil diubah');
+    }
+
+    // public function destroy(Request $request, $id)
+    // {
+    //     $data = Tahun_Ajaran::findOrFail($id);
+    //     // dd($data); 
+    //     // $data ini untuk menampilkan data yang akan di edit sesuai dengan id nya
+    //     // $data->delete();
+    //     if ($request->ajax()){
+    //         if ($data) {
+    //             $data->delete();
+    //             return response()->json([
+    //                 'success' => true,
+    //                 'message' => 'Data '. $data->tahun . ' berhasil dihapus.'
+    //             ]);
+    //         }
+    //         return response()->json([
+    //             'success' => false,
+    //             'message' => 'Data tidak ditemukan.'
+    //         ]);
+    //     }
+    //     return redirect('bendahara/tahun/pelajaran');
+    // }
 }

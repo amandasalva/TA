@@ -17,4 +17,9 @@ class BerandaGuruController extends Controller
         // dd($data);
         return view('u_guru.guru-beranda', compact('data'));
     }
+
+    public function create()
+    {
+        return view('u_bendahara.guru.tambah-data-guru');
+    }
 }

@@ -14,4 +14,9 @@ class Tahun_Ajaran extends Model
         'tahun',
         'semester',
     ];
+
+    // public function getTahunSemesterAttribute()
+    // {
+    //     return $this->tahun . '/' . $this->semester . ' ' . ($this->semester == 'Genap' ? 'Genap' : 'Ganjil');
+    // }
 }
