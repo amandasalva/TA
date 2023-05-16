@@ -1,4 +1,4 @@
-@extends('layout.main', ['title' => 'Beranda Bendahara', 'foto_profil' => $data->image, 'active' => 'beranda'])
+@extends('layout.main', ['title' => 'Beranda Bendahara', 'active' => 'beranda'])
 
 @section('content')
 <div class="content-wrapper">

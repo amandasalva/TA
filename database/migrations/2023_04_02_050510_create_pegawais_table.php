@@ -16,7 +16,7 @@ return new class extends Migration
             $table->foreignId('user_id');
             $table->string('nama_lengkap');
             $table->string('tempat_lahir');
-            $table->string('tgl_lahir');
+            $table->date('tgl_lahir');
             $table->enum('jk', ['Laki-laki', 'Perempuan']);
             $table->string('alamat');
             $table->string('agama');

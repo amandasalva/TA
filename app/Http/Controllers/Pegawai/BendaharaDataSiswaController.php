@@ -13,14 +13,14 @@ class BendaharaDataSiswaController extends Controller
     {
         $user_id = Auth::user()->id;
         $data = Pegawai::where('user_id', '=', $user_id)->first();
-        return view('u_bendahara.data-siswa', compact('data'));
+        return view('u_bendahara.siswa.data-siswa', compact('data'));
     }
 
     public function create()
     {
         $user_id = Auth::user()->id;
         $data = Pegawai::where('user_id', '=', $user_id)->first();
-        return view('u_bendahara.tambah-data-siswa', compact('data'));
+        return view('u_bendahara.siswa.tambah-data-siswa', compact('data'));
     }
 
     public function store(Request $request)
@@ -38,6 +38,9 @@ class BendaharaDataSiswaController extends Controller
             'password' => 'required|min:8',
             'image' => 'nullable|image|mimes:jpeg,jpg,png|max:2000',
         ]);
+        
+        $data = $request->all();
+        
 
         $data = $request->all();
     }   

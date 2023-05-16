@@ -1,4 +1,4 @@
-@extends('layout.main', ['title' => 'Tambah Tahun Pelajaran - Bendahara', 'foto_profil' => $data->image, 'active' => 'thn-pelajaran'])
+@extends('layout.main', ['title' => 'Tambah Tahun Pelajaran - Bendahara', 'active' => 'thn-pelajaran'])
 
 @section('content')
   <div class="content-wrapper">
@@ -18,7 +18,7 @@
                     <input type="text" class="form-control
                     @error('tahun')
                       is-invalid
-                    @enderror" id="tahun" name="tahun" placeholder="2020/2021" />
+                    @enderror" id="tahun" name="tahun" placeholder="2020/2021" autocomplete="off" />
                     @error('tahun')
                     <div class="invalid-feedback">
                       {{ $message }}

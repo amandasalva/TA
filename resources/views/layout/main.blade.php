@@ -40,7 +40,11 @@
 
     <!--! Template customizer & Theme config files MUST be included after core stylesheets and helpers.js in the <head> section -->
     <!--? Config:  Mandatory theme config file contain global vars & default theme options, Set your preferred theme option in this file.  -->
-    <script src="../../../assets/js/config.js"></script>
+    <l src="../../../assets/js/config.js"></script>
+      {{-- <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/v/bs4/dt-1.11.2/datatables.min.css"/> --}}
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/5.2.0/css/bootstrap.min.css"></link> 
+    <link href="https://cdn.datatables.net/1.13.4/css/dataTables.bootstrap5.min.css"></link>
+    
 
     <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/v/bs5/dt-1.13.1/datatables.min.css"/>
   </head>
@@ -79,6 +83,13 @@
               </a>
             </li>
             @if (Auth::user()->role_id == 1)
+            <li class="menu-item {{ $active == 'data-kelas' ? 'active' : '' }}">
+              <a href="{{ route('bendahara.data.kelas') }}" class="menu-link">
+                <i class="menu-icon tf-icons bx bxs-user-detail"></i>
+                <div>Data Kelas</div>
+              </a>
+            </li>
+            
             <li class="menu-item {{ $active == 'data-siswa' ? 'active' : '' }}">
               <a href="{{ route('bendahara.data.siswa') }}" class="menu-link">
                 <i class="menu-icon tf-icons bx bxs-user-detail"></i>
@@ -101,13 +112,13 @@
             </li>
 
             <li class="menu-item {{ $active == 'pendaftaran' ? 'active' : '' }}">
-              <a href="#" class="menu-link">
+              <a href="{{ route('bendahara.pendaftaran.siswa') }}" class="menu-link">
                 <i class="menu-icon tf-icons bx bxs-user-plus"></i>
                 <div>Pendaftaran</div>
               </a>
             </li>
 
-            <li class="menu-item {{ $active == 'pendaftaran' ? 'active' : '' }}">
+            <li class="menu-item {{ $active == 'laporan' ? 'active' : '' }}">
               <a href="#" class="menu-link">
                 <i class='menu-icon tf-icons bx bxs-bar-chart-alt-2'></i>
                 <div>Laporan</div>
@@ -141,10 +152,10 @@
                 <li class="nav-item navbar-dropdown dropdown-user dropdown">
                   <a class="nav-link dropdown-toggle hide-arrow" href="javascript:void(0);" data-bs-toggle="dropdown">
                     <div class="avatar avatar-online">
-                      @if (Auth::user()->image)
-                        <img src="{{ url('storage/foto_profil/'.$foto_profil) }}" alt class="w-px-40 h-auto rounded-circle" />
+                      @if (Auth::user()->pegawai->image)
+                      <img src="{{ asset('storage/foto_profil/'.Auth::user()->pegawai->image) }}" alt class="w-px-40 h-auto rounded-circle" />
                       @else
-                        <img src="{{ url('images/user-default.jpg'.$foto_profil) }}" alt class="w-px-40 h-auto rounded-circle" />                              
+                      <img src="{{ asset('images/user-default.jpg') }}" alt class="w-px-40 h-auto rounded-circle" />                              
                       @endif
                     </div>
                   </a>
@@ -154,10 +165,10 @@
                         <div class="d-flex">
                           <div class="flex-shrink-0 me-3">
                             <div class="avatar avatar-online">
-                              @if (Auth::user()->image)
-                                <img src="{{ url('storage/foto_profil/'.$foto_profil) }}" alt class="w-px-40 h-auto rounded-circle" />
+                              @if (Auth::user()->pegawai->image)
+                              <img src="{{ asset('storage/foto_profil/'.Auth::user()->pegawai->image) }}" alt class="w-px-40 h-auto rounded-circle" />
                               @else
-                                <img src="{{ url('images/user-default.jpg'.$foto_profil) }}" alt class="w-px-40 h-auto rounded-circle" />                              
+                              <img src="{{ asset('images/user-default.jpg') }}" alt class="w-px-40 h-auto rounded-circle" />                              
                               @endif
                             </div>
                           </div>
@@ -180,13 +191,13 @@
                       <div class="dropdown-divider"></div>
                     </li>
                     <li>
+                      <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
+                      @csrf
+                      </form>
                       <a class="dropdown-item" onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
                         <i class="bx bx-power-off me-2"></i>
                         <span class="align-middle" style="cursor: pointer;">Keluar</span>
                       </a>
-                      <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
-                      @csrf
-                      </form>
                     </li>
                   </ul>
                 </li>
@@ -246,6 +257,9 @@
     <!-- Place this tag in your head or just before your close body tag. -->
     <script async defer src="https://buttons.github.io/buttons.js"></script>
 
+    <script type="text/javascript" src="https://code.jquery.com/jquery-3.5.1.js"></script>
+    {{-- <script type="text/javascript" src="https://cdn.datatables.net/v/bs4/dt-1.11.2/datatables.min.js"></script> --}}
+
     <script type="text/javascript" src="https://cdn.datatables.net/v/bs5/dt-1.13.1/datatables.min.js"></script>
     {{-- <script src="sweetalert2.all.min.js"></script> --}}
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
@@ -254,19 +268,26 @@
     {{-- <script src="../../../assets/vendor/libs/bootstrap-datepicker/bootstrap-datepicker.js"></script> --}}
     {{-- <script src="../../../assets/vendor/libs/flatpickr/flatpickr.js"></script> --}}
 
+  <script type="text/javascript">
+  var table = new DataTable('#classTable', {
+    lengthChange: false,
+    searching: false,
+    emptyTable: true,
+    paging: false,
+    language: {
+        url: '//cdn.datatables.net/plug-ins/1.13.4/i18n/id.json',
+    },
+  });
+  </script>  
 
-    {{-- <script type="text/javascript">
-      $(document).ready( function () {
-        $('#myTable').DataTable(
-        );
-      });
-    </script>
-
-    <script>
-      $("#bs-datepicker-format").datepicker({ format: "dd/mm/yyyy" });
-    </script> --}}
-
-
+  <script type="text/javascript">
+  var table = new DataTable('#mytable', {
+    emptyTable: true,
+    language: {
+        url: '//cdn.datatables.net/plug-ins/1.13.4/i18n/id.json',
+    },
+  });
+  </script>  
   </body>
 </html>
 

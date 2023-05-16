@@ -1,1 +1,1 @@
-@extends('layout.main', ['title' => 'Beranda Kepala Sekolah', 'foto_profil' => $data->image])
+@extends('layout.main', ['title' => 'Beranda Kepala Sekolah'])

@@ -1,17 +1,23 @@
-@extends('layout.main', ['title' => 'Tambah data guru - Bendahara', 'active' => 'data-guru'])
+@extends('layout.main', ['title' => 'Pendaftaran Siswa - Bendahara', 'active' => 'pendaftaran'])
 
 @section('content')
-  <div class="content-wrapper">
+<div class="content-wrapper">
     <div class="container-xxl flex-grow-1 container-p-y">
       <div class="row">
         <div class="col-xxl">
           <div class="card mb-4">
             <div class="card-header d-flex align-items-center justify-content-between">
-              <h4 class="mb-3">Tambah Data Guru</h4>
+              <h4 class="mb-3">Formulir Pendaftaran Siswa Baru</h4>
             </div>
             <div class="card-body">
-              <form action="{{ route('bendahara.store.guru') }}" method="POST" enctype="multipart/form-data" >
+              <form action="{{ route('bendahara.tambah.pendaftar') }}" method="POST" enctype="multipart/form-data" >
                 @csrf
+                <div class="row mb-3">
+                  <label class="col-sm-2 col-form-label">NIS</label>
+                  <div class="col-sm-10">
+                    <input type="text" class="form-control" id="nis" name="nis" value="{{ $nis }}" readonly/>
+                  </div>
+                </div>
                 <div class="row mb-3">
                   <label class="col-sm-2 col-form-label">Nama Lengkap</label>
                   <div class="col-sm-10">
@@ -34,6 +40,20 @@
                       is-invalid
                     @enderror" id="username" name="username" placeholder="Amanda Salva Balesta" autocomplete="off"/>
                     @error('username')
+                    <div class="invalid-feedback">
+                      {{ $message }}
+                    </div>
+                    @enderror
+                  </div>
+                </div>
+                <div class="row mb-3">
+                  <label class="col-sm-2 col-form-label">Nama Wali</label>
+                  <div class="col-sm-10">
+                    <input type="text" class="form-control
+                    @error('nama_wali')
+                      is-invalid
+                    @enderror" id="nama_wali" name="nama_wali" placeholder="Amanda Salva Balesta" autocomplete="off"/>
+                    @error('nama_wali')
                     <div class="invalid-feedback">
                       {{ $message }}
                     </div>
@@ -134,6 +154,28 @@
                     @enderror
                   </div>
                 </div>
+                <div class="row mb-3">
+                  <label class="col-sm-2 col-form-label">tahun masuk</label>
+                  <div class="col-md-10">
+                    <select class="form-control" name="thn_masuk" id="thn_masuk">
+                      <option value="" selected disabled>-- Pilih Tahun --</option>
+                      @foreach ($tapel as $t)
+                          <option value="{{ $t->id }}">{{ $t->tahun }} - {{ $t->semester }}</option>
+                      @endforeach
+                    </select>
+                    </div>
+                </div>
+                <div class="row mb-3">
+                  <label class="col-sm-2 col-form-label">Pilih Kelas</label>
+                  <div class="col-md-10">
+                  <select class="form-control" name="kelas_id" id="kelas_id">
+                    <option value="" selected disabled>-- Pilih Kelas --</option>
+                    @foreach ($kelas as $k)
+                        <option value="{{ $k->id }}">{{ $k->tingkat }}</option>
+                    @endforeach
+                  </select>
+                  </div>
+                </div>
                 <div class="mb-3 row">
                   <label class="col-md-2 col-form-label">Status</label>
                   <div class="col-md-10">
@@ -153,33 +195,6 @@
                     </div> --}}
                   </div>
                 </div>
-                {{-- <div class="row mb-3 form-password-toggle">
-                  <label class="col-sm-2 col-form-label">password</label>
-                  <div class="input-group-merge col-sm-10">
-                    <input type="password" class="form-control
-                    @error('password')
-                      is-invalid
-                    @enderror" id="password" name="password" placeholder="Jalan Darusman" />
-                    <span class="input-group-text cursor-pointer"><i class="bx bx-hide"></i></span>
-                    @error('password')
-                    <div class="invalid-feedback">
-                      {{ $message }}
-                    </div>
-                    @enderror
-                  </div>
-                </div> --}}
-                {{-- <div class="mb-3 row">
-                  <label class="col-md-2 col-form-label">Foto</label>
-                  <div class="col-md-10">
-                      <input class="form-control" type="file" name="image" placeholder="image">
-                      <span style="color: #fa6801">
-                          @error('image')
-                              {{ $message }}
-                          @enderror
-                      </span>
-                  </div>
-                </div> --}}
-
                 <div class="mb-3 row">
                   <label class="col-md-2 col-form-label">Foto</label>
                   <div class="col-md-10">
@@ -200,7 +215,7 @@
                 </div>
 
                 <div class="d-flex flex-wrap justify-content-end">
-                  <a href="{{ route('bendahara.data.guru') }}" class="btn btn-danger m-1">Batal</a>
+                  {{-- <a href="{{ route('bendahara.data.guru') }}" class="btn btn-danger m-1">Batal</a> --}}
                   <button class="btn btn-purple m-1" type="submit" name="submit">Simpan</button>
                 </div>
               </form>

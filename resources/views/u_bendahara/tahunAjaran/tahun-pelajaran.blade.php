@@ -1,4 +1,4 @@
-@extends('layout.main', ['title' => 'Tahun Pelajaran - Bendahara', 'foto_profil' => $data->image, 'active' => 'thn-pelajaran'])
+@extends('layout.main', ['title' => 'Tahun Pelajaran - Bendahara', 'active' => 'thn-pelajaran'])
 
 @section('content')
   <div class="content-wrapper">
@@ -12,7 +12,7 @@
         </div>
         <div class="card-body">
           <div class="table-responsive text-nowrap">
-            <table class="table table-hover table-bordered table-striped" id="myTable">
+            <table class="table table-hover table-bordered table-striped" id="mytable">
               <thead style="background-color: #cff0d660">
                 <tr>
                   <th style="text-align:center; font-weight:bold;">No</th>

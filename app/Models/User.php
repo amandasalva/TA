@@ -30,7 +30,7 @@ class User extends Authenticatable
 
     public function pegawai()
     {
-        return $this->belongsTo(Pegawai::class);
+        return $this->hasOne(Pegawai::class);
     }
 
     /**

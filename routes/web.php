@@ -4,6 +4,8 @@ use App\Http\Controllers\LoginController;
 use App\Http\Controllers\Pegawai\BendaharaDataGuru;
 use App\Http\Controllers\Pegawai\BendaharaDataGuruController;
 use App\Http\Controllers\Pegawai\BendaharaDataSiswaController;
+use App\Http\Controllers\Pegawai\BendaharaKelasController;
+use App\Http\Controllers\Pegawai\BendaharaPendaftaranSiswa;
 use App\Http\Controllers\Pegawai\BendaharaTahunPelajaranController;
 use App\Http\Controllers\Pegawai\BerandaBendaharaController;
 use App\Http\Controllers\Pegawai\BerandaGuruController;
@@ -26,7 +28,7 @@ use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
     return view('layout.landpage');
-});
+})->name('landingpage');
 
 
 Route::post('pegawai/proses/login', [LoginController::class, 'prosesLoginPegawai'])->name('pegawai.proses.login');
@@ -70,6 +72,17 @@ Route::prefix('/bendahara')->group(function() {
             Route::post('/store/guru', 'store')->name('bendahara.store.guru');
             Route::get('/edit/guru/{id}', 'edit')->name('bendahara.edit.guru');
             Route::put('/update/guru/{id}', 'update')->name('bendahara.update.guru');
+            Route::put('/users/{id}/updatePassword', 'updatePassword')->name('bendahara.updatePassword');
+            Route::delete('/hapus/data/{id}', 'destroy')->name('bendahara.hapus.data');
+        });
+        Route::controller(BendaharaPendaftaranSiswa::class)->group(function() {
+           Route::get('/pendaftaran/siswa', 'index') ->name('bendahara.pendaftaran.siswa');
+           Route::post('/tambah/pendaftar', 'store')->name('bendahara.tambah.pendaftar');
+        });
+
+        Route::controller(BendaharaKelasController::class)->group(function() {
+            Route::get('/data/kelas', 'index')->name('bendahara.data.kelas');
+            Route::post('/tambah/kelas', 'store')->name('bendahara.tambah.kelas');
         });
     });
 });

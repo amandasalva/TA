@@ -15,7 +15,6 @@ return new class extends Migration
             $table->id();
             $table->foreignId('user_id');
             $table->foreignId('kelas_id');
-            $table->foreignId('semester_id');
             $table->string('NIS');
             $table->string('nama_lengkap');
             $table->string('nama_wali');
