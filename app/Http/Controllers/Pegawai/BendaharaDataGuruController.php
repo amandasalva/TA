@@ -133,8 +133,11 @@ class BendaharaDataGuruController extends Controller
     public function edit($id)
     {
         $data = Pegawai::where('id', '=', $id)->first();
-        $guru = Pegawai::join('users','pegawais.user_id','=','users.id')->select('pegawais.*','pegawais.id','users.username')->where('pegawais.id',$id)->first();
-        // dd($guru);
+        $guru = Pegawai::join('users','pegawais.user_id','=','users.id')
+            ->select('pegawais.*','pegawais.id','users.username')
+            ->where('pegawais.id',$id)
+            ->first();
+        dd($guru);
         return view('u_bendahara.guru.edit-data-guru', compact('data', 'guru'));
     }
 

@@ -65,6 +65,9 @@ Route::prefix('/bendahara')->group(function() {
         Route::controller(BendaharaDataSiswaController::class)->group(function() {
             Route::get('/data/siswa', 'index')->name('bendahara.data.siswa');
             Route::get('/tambah/siswa', 'create')->name('bendahara.tambah.siswa');
+            Route::post('/store/siswa', 'store')->name('bendahara.store.siswa');
+            Route::get('/edit/data/siswa/{id}', 'edit')->name('bendahara.edit.data.siswa');
+            Route::put('/update/data/siswa/{id}', 'update')->name('bendahara.update.data.siswa');
         });
         Route::controller(BendaharaDataGuruController::class)->group(function() {
             Route::get('/data/guru', 'index')->name('bendahara.data.guru');

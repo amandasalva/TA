@@ -16,7 +16,6 @@ class BendaharaKelasController extends Controller
         return view('u_bendahara.kelas.data-kelas', compact('kelas'));
     }
     
-
     public function store(Request $request)
     {
         $validator = FacadesValidator::make($request->all(), [

@@ -14,7 +14,6 @@ return new class extends Migration
         Schema::create('siswa', function (Blueprint $table) {
             $table->id();
             $table->foreignId('user_id');
-            $table->foreignId('kelas_id');
             $table->string('NIS');
             $table->string('nama_lengkap');
             $table->string('nama_wali');
@@ -25,7 +24,8 @@ return new class extends Migration
             $table->string('agama');
             $table->string('alamat');
             $table->string('thn_masuk');
-            $table->enum('status', ['aktif', 'non-aktif']);
+            $table->string('kelas');
+            $table->enum('status', ['Aktif', 'Non-aktif']);
             $table->string('image')->nullable();
             $table->timestamps();
         });

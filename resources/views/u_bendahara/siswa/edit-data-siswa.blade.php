@@ -1,0 +1,1 @@
+@extends('layout.main', ['title' => 'Edit Data Siswa - Bendahara', 'active' => 'data-siswa'])
