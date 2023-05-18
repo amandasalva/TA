@@ -25,7 +25,6 @@ class BendaharaDataGuruController extends Controller
             ->where('users.role_id', '=', '3')
             ->select( '*',
                 // 'users.username',
-                // 'pegawais.nama_lengkap',
                 // 'pegawais.jk',
                 // 'pegawais.alamat',
                 // 'pegawais.image',
