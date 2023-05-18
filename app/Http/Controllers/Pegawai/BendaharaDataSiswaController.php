@@ -13,15 +13,12 @@ use App\Models\Siswa;
 use App\Models\User;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Storage;
 
 class BendaharaDataSiswaController extends Controller
 {
     public function index()
     {
-        // $user_id = Auth::user()->id;
-        // $data = Pegawai::where('user_id', '=', $user_id)->first();
-        // $kelas = Kelas::all();
-        // $tapel = Tahun_Ajaran::all();
         $username = strtolower(Str::random(6));
         while (User::where('username', $username)->exists()) {
             $username = strtolower(Str::random(6));
@@ -132,8 +129,116 @@ class BendaharaDataSiswaController extends Controller
 
     public function edit($id)
     {
+        $kelas = Kelas::all();
+        $tapel = Tahun_Ajaran::all();
         $siswa = Siswa::find($id);
         // dd($siswa);
-        return view('u_bendahara.siswa.edit-data-siswa', compact('siswa'));
+        return view('u_bendahara.siswa.edit-data-siswa', compact('siswa', 'kelas', 'tapel'));
+    }
+
+    public function update(Request $request, $id)
+    {
+        $siswa = Siswa::findOrFail($id);
+        $request->validate([
+            'nis' => 'required',
+            'nama_lengkap' => 'required',
+            'nama_wali' => 'required',
+            'agama' => 'required',
+            'no_hp' => 'required|numeric|digits_between:11,13',
+            'tempat_lahir' => 'required',
+            'tgl_lahir' => 'required',
+            'jk' => 'required',
+            'alamat' => 'required',
+            'thn_masuk' => 'required',
+            'kelas' => 'required',
+            'status' => 'required',
+            'image' => 'nullable|image|mimes:jpeg,jpg,png|max:2000',
+        ],
+        [
+            'nis.required' => 'NIS harus diisi.',
+            'nama_lengkap.required' => 'Nama lengkap harus diisi.',
+            'nama_wali.required' => 'Nama wali tidak boleh kosong.',
+            'agama.required' => 'Agama harus diisi.',
+            'no_hp.required' => 'No telepon harus diisi.',
+            'tempat_lahir.required' => 'Tempat lahir harus diisi.',
+            'tgl_lahir.required' => 'Tanggal lahir harus diisi,',
+            'jk.required'=> 'Jenis kelamin harus diisi.',
+            'alamat.required' => 'Alamat harus diisi.',
+            'thn_masuk.required' => 'Harus memilih tahun masuk',
+            'kelas.required' => 'Harus memilih kelas,',
+            'status.required' => 'Status harus diisi.',
+        ]);
+
+        if($request->file('image') === null)
+        {
+            $user = User::where('id', $siswa->user_id)->update([
+                'username' => $request->input('nis'),
+                'role_id' => '2',
+            ]);
+
+            
+            Siswa::where('id', $id)->update([
+                'nis' => $request->input('nis'),
+                'nama_lengkap' => $request->input('nama_lengkap'),
+                'nama_wali' => $request->input('nama_wali'),
+                'agama' => $request->input('agama'),
+                'no_hp' => $request->input('no_hp'),
+                'tempat_lahir' => $request->input('tempat_lahir'),
+                'tgl_lahir' => $request->input('tgl_lahir'),
+                'jk' => $request->input('jk'),
+                'alamat' => $request->input('alamat'),
+                'thn_masuk' => $request->input('thn_masuk'),
+                'kelas' => $request->input('kelas'),
+                'status' => $request->input('status'),
+            ]);
+
+        } else {
+            Storage::disk('local')->delete(
+                'public/foto_profil/' . basename($siswa->image)
+            );
+
+            $image = $request->file('image');
+            $image->store('public/foto_profil/' . $image->hashName());
+
+            User::where('id', $siswa->user_id)->update([
+                'username' => $request->input('username'),
+                'role_id' => '2',
+            ]);
+
+            
+            Siswa::where('id', $id)->update([
+                'nis' => $request->input('nis'),
+                'nama_lengkap' => $request->input('nama_lengkap'),
+                'nama_wali' => $request->input('nama_wali'),
+                'agama' => $request->input('agama'),
+                'no_hp' => $request->input('no_hp'),
+                'tempat_lahir' => $request->input('tempat_lahir'),
+                'tgl_lahir' => $request->input('tgl_lahir'),
+                'jk' => $request->input('jk'),
+                'alamat' => $request->input('alamat'),
+                'thn_masuk' => $request->input('thn_masuk'),
+                'kelas' => $request->input('kelas'),
+                'status' => $request->input('status'),
+                'image' => $image->hashName(),
+            ]);
+        }
+        return redirect('bendahara/data/siswa')->with('success', 'Data berhasil di perbaharui');
+    }
+
+    public function updatePassword(Request $request, $id)
+    {
+        $siswa = Siswa::where('id', '=', $id)->first();
+        $user = User::where('id', '=', $siswa->user_id)->first();
+        $request->validate([
+            'new_password' => 'required|min:8',
+        ]);
+
+        $password = Hash::make($request->input('new_password'));
+
+        User::where('id', '=', $user->id)->update([
+            'password' => $password
+        ]);
+
+        return redirect('bendahara/data/siswa')->with('success', 'Kata Sandi berhasil di perbaharui');
     }
 }

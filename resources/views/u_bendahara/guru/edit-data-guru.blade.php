@@ -195,13 +195,13 @@
         <div class="col-xxl">
           <div class="card mb-4">
             <div class="card-header d-flex align-items-center justify-content-between">
-              <h4 class="mb-3">Ubah Kata Sandi</h4>
+              <h4 class="mb-3">Reset Kata Sandi</h4>
             </div>
             <div class="card-body">
               <form action="{{ route('bendahara.updatePassword', $guru->id) }}" method="POST" >
                 @csrf
                 @method('PUT')
-                <div class="mb-3 row">
+                {{-- <div class="mb-3 row">
                   <label for="password" class="col-md-2 col-form-label">Kata Sandi Lama</label>
                   <div class="col-md-10">
                     <input type="password" name="password" class="form-control
@@ -214,7 +214,7 @@
                         </div>
                     @enderror
                   </div>
-                </div>
+                </div> --}}
                 <div class="mb-3 row">
                   <label for="new_password" class="col-md-2 col-form-label">Kata Sandi Baru</label>
                   <div class="col-md-10">

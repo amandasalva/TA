@@ -38,7 +38,13 @@
                 <td>{{ $dtsiswa->kelas }}</td>
                 <td>{{ $dtsiswa->thn_masuk }}</td>
                 <td>{{ $dtsiswa->jk }}</td>
-                <td><span class="badge bg-label-info me-1">{{ $dtsiswa->status }}</span></td>
+                <td>
+                  @if ($dtsiswa->status == "Aktif")
+                    <span class="badge bg-label-info me-1">{{ $dtsiswa->status }}</span></td>
+                    @else
+                    <span class="badge bg-label-danger me-1">{{ $dtsiswa->status }}</span></td>
+                    @endif
+                </td>
                 <td>
                   <form action="" method="POST">
                     @csrf

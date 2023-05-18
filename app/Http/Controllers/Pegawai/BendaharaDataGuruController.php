@@ -137,7 +137,7 @@ class BendaharaDataGuruController extends Controller
             ->select('pegawais.*','pegawais.id','users.username')
             ->where('pegawais.id',$id)
             ->first();
-        dd($guru);
+        // dd($guru);
         return view('u_bendahara.guru.edit-data-guru', compact('data', 'guru'));
     }
 
@@ -248,7 +248,7 @@ class BendaharaDataGuruController extends Controller
         $user = User::where('id', '=', $pegawai->user_id)->first();
         
         $request->validate([
-            'password' => 'required|min:8',
+            // 'password' => 'required|min:8',
             'new_password' => 'required|min:8',
         ]);
 
@@ -258,7 +258,7 @@ class BendaharaDataGuruController extends Controller
             'password' => $password
         ]);
 
-        return redirect('bendahara/data/guru')->with('success', 'Data berhasil diperbaharui');
+        return redirect('bendahara/data/guru')->with('success', 'Kata Sandi berhasil diperbaharui');
     }
     
     public function destroy(Request $request, $id)

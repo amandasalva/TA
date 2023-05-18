@@ -45,7 +45,12 @@
                       <img src="{{ asset('storage/foto_profil/' .$dtguru->image) }}" alt="Foto guru" class="w-px-40 h-auto rounded-circle" />
                       @endif
                   </td>
-                  <td><span class="badge bg-label-info me-1">{{ $dtguru->status }}</span></td>
+                  <td>
+                    @if ($dtguru->status == "Aktif")
+                    <span class="badge bg-label-info me-1">{{ $dtguru->status }}</span></td>
+                    @else
+                    <span class="badge bg-label-danger me-1">{{ $dtguru->status }}</span></td>
+                    @endif
                   <td>
                     <form action="{{ route('bendahara.hapus.data', $dtguru->id) }}" method="POST">
                       @csrf

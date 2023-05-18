@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Pegawai;
+use App\Models\Siswa;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -32,39 +34,46 @@ class LoginController extends Controller
 
         $username = $request->username;
         $user = User::where('username', '=', $username)->first();
+        $pegawai = Pegawai::where('user_id', $user->id)->get();
 
         if ($user) {
-            if ($user->role_id == 1) {
-                if (Auth::attempt(['username' => $request->username, 'password' => $request->password])) {
-                        $request->session()->regenerate();
-                        return redirect('bendahara/beranda')->with('success', 'YEYY!! Anda berhasil login!');
+            if($pegawai[0]->status == "aktif"){
+                if ($user->role_id == 1) {
+                    if (Auth::attempt(['username' => $request->username, 'password' => $request->password])) {
+                            $request->session()->regenerate();
+                            return redirect('bendahara/beranda')->with('success', 'YEYY!! Anda berhasil login!');
+                    } else {
+                        return back()->with('error','OOPS!! Nama pengguna / kata sandi salah')->withInput($request->all());
+                    }
+                } elseif ($user->role_id == 3) {
+                    if (Auth::attempt([
+                        'username' => $request->username,
+                        'password' => $request->password])
+                        ) {
+                            $request->session()->regenerate();
+                            return redirect('guru/beranda')->with('success', 'YEYY!! Anda berhasil login!');
+                    } else {
+                        return back()->with('error','OOPS!! Nama pengguna / kata sandi salah')->withInput($request->all());
+                    }
+                } elseif ($user->role_id == 4) {
+                    if (Auth::attempt([
+                        'username' => $request->username,
+                        'password' => $request->password])
+                        ) {
+                            $request->session()->regenerate();
+                            return redirect('kepalasekolah/beranda')->with('success', 'YEYY!! Anda berhasil login!');
+                    } else {
+                        return back()->with('error','OOPS!! Nama pengguna / kata sandi salah')->withInput($request->all());
+                    }
                 } else {
-                    return back()->with('error','OOPS!! Nama pengguna / kata sandi salah')->withInput($request->all());
+                    return back()->withErrors([
+                        'username' => 'Nama pengguna tidak ditemukan!',
+                    ]);
                 }
-            } elseif ($user->role_id == 3) {
-                if (Auth::attempt([
-                    'username' => $request->username,
-                    'password' => $request->password])
-                    ) {
-                        $request->session()->regenerate();
-                        return redirect('guru/beranda')->with('success', 'YEYY!! Anda berhasil login!');
-                } else {
-                    return back()->with('error','OOPS!! Nama pengguna / kata sandi salah')->withInput($request->all());
-                }
-            } elseif ($user->role_id == 4) {
-                if (Auth::attempt([
-                    'username' => $request->username,
-                    'password' => $request->password])
-                    ) {
-                        $request->session()->regenerate();
-                        return redirect('kepalasekolah/beranda')->with('success', 'YEYY!! Anda berhasil login!');
-                } else {
-                    return back()->with('error','OOPS!! Nama pengguna / kata sandi salah')->withInput($request->all());
-                }
-            } else {
-                return back()->withErrors([
-                    'username' => 'Nama pengguna tidak ditemukan!',
-                ]);
+            }else{
+                return back()->with(
+                    'error', 'Pengguna telah non-aktif!',
+                );
             }
         }
         return back()->withErrors([
@@ -86,6 +95,8 @@ class LoginController extends Controller
         ]);
 
         $users = User::select('username', 'role_id')->get();
+        $user = User::where('username', '=', $request->username)->first();
+        $siswa = Siswa::where('user_id', $user->id)->get();
         foreach ($users as $user) {
             if ($user->username == $request->username and $user->role_id == 2) {
                 $check = 1; //true
@@ -93,13 +104,19 @@ class LoginController extends Controller
         }
 
         if ($check == 1) {
-            if (Auth::attempt(['username' => $request->username, 'password' => $request->password])) {
-               $request->session()->regenerate();
-               return back()->with('success', 'YEYY!!! Anda berhasil login');
-            } else {
-                return back()->with('error','OOPS!! Nama pengguna / kata sandi salah')->withInput($request->all());
-                ;
-            } 
+            if($siswa[0]->status == "Aktif"){
+                if (Auth::attempt(['username' => $request->username, 'password' => $request->password])) {
+                    $request->session()->regenerate();
+                    return back()->with('success', 'YEYY!!! Anda berhasil login');
+                    } else {
+                        return back()->with('error','OOPS!! Nama pengguna / kata sandi salah')->withInput($request->all());
+                        ;
+                    }
+            }else{
+                return back()->with(
+                    'error', 'Pengguna telah non-aktif!',
+                );
+            }   
         }else {
             return back()->withErrors([
                 'username' => 'Nama pengguna tidak ditemukan!',

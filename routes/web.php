@@ -68,6 +68,7 @@ Route::prefix('/bendahara')->group(function() {
             Route::post('/store/siswa', 'store')->name('bendahara.store.siswa');
             Route::get('/edit/data/siswa/{id}', 'edit')->name('bendahara.edit.data.siswa');
             Route::put('/update/data/siswa/{id}', 'update')->name('bendahara.update.data.siswa');
+            Route::put('/users/{id}/updatePassword', 'updatePassword')->name('bendahara.updatePassword.siswa');
         });
         Route::controller(BendaharaDataGuruController::class)->group(function() {
             Route::get('/data/guru', 'index')->name('bendahara.data.guru');
@@ -75,7 +76,7 @@ Route::prefix('/bendahara')->group(function() {
             Route::post('/store/guru', 'store')->name('bendahara.store.guru');
             Route::get('/edit/guru/{id}', 'edit')->name('bendahara.edit.guru');
             Route::put('/update/guru/{id}', 'update')->name('bendahara.update.guru');
-            Route::put('/users/{id}/updatePassword', 'updatePassword')->name('bendahara.updatePassword');
+            Route::put('/updatePassword/{id}', 'updatePassword')->name('bendahara.updatePassword');
             Route::delete('/hapus/data/{id}', 'destroy')->name('bendahara.hapus.data');
         });
         Route::controller(BendaharaPendaftaranSiswa::class)->group(function() {

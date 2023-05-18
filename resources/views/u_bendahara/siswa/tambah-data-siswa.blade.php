@@ -24,7 +24,7 @@
                       is-invalid
                     @enderror" id="nis" name="nis" autocomplete="off"/>
                     @error('nis')
-                        <div class="invalid-feedbackk">
+                        <div class="invalid-feedback">
                           {{ $message }}
                         </div>
                     @enderror
