@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\LoginController;
+use App\Http\Controllers\MidtransController;
 use App\Http\Controllers\Pegawai\BendaharaDataGuru;
 use App\Http\Controllers\Pegawai\BendaharaDataGuruController;
 use App\Http\Controllers\Pegawai\BendaharaDataSiswaController;
@@ -30,6 +31,8 @@ Route::get('/', function () {
     return view('layout.landpage');
 })->name('landingpage');
 
+Route::get('/payment', [MidtransController::class, 'createPayment']);
+
 
 Route::post('pegawai/proses/login', [LoginController::class, 'prosesLoginPegawai'])->name('pegawai.proses.login');
 Route::post('siswa/proses/login', [LoginController::class, 'prosesLoginSiswa'])->name('siswa.proses.login');
@@ -40,7 +43,6 @@ Route::prefix('/siswa')->group(function() {
         Route::get('/beranda', [BerandaSiswaController::class, 'index'])->name('siswa.beranda');
     });
 });
-
 
 Route::prefix('/pegawai')->group(function() {
     Route::get('/login', [LoginController::class, 'indexPegawai'])->middleware('guest:web')->name('pegawai.login');
@@ -87,6 +89,10 @@ Route::prefix('/bendahara')->group(function() {
         Route::controller(BendaharaKelasController::class)->group(function() {
             Route::get('/data/kelas', 'index')->name('bendahara.data.kelas');
             Route::post('/tambah/kelas', 'store')->name('bendahara.tambah.kelas');
+        });
+
+        Route::controller(MidtransController::class)->group(function() {
+            Route::get('/transaksi', 'index')->name('bendahara.transaksi');
         });
     });
 });

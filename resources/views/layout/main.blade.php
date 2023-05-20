@@ -109,7 +109,7 @@
                         </li>
 
                         <li class="menu-item {{ $active == 'jenis-trans' ? 'active' : '' }}">
-                            <a href="{{ route('bendahara.tambah.guru') }}" class="menu-link">
+                            <a href="{{ route('bendahara.transaksi') }}" class="menu-link">
                                 <i class="menu-icon tf-icons bx bxs-donate-heart"></i>
                                 <div>Data Jenis Transaksi</div>
                             </a>
