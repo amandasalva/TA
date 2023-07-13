@@ -7,6 +7,7 @@ use App\Models\Siswa;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Session;
 
 class LoginController extends Controller
 {
@@ -83,7 +84,7 @@ class LoginController extends Controller
 
     public function prosesLoginSiswa(Request $request)
     {
-        $check = 0; //false
+        // $check = 0; //false
         $request->validate([
             'username' => 'required',
             'password' => 'required|min:8',
@@ -96,16 +97,20 @@ class LoginController extends Controller
 
         $users = User::select('username', 'role_id')->get();
         $user = User::where('username', '=', $request->username)->first();
-        $siswa = Siswa::where('user_id', $user->id)->get();
+        // if (!$user) {
+            
+        // }
+
+        $siswa = Siswa::where('user_id', $user->id)->first();
         foreach ($users as $user) {
             if ($user->username == $request->username and $user->role_id == 2) {
                 $check = 1; //true
             }
         }
 
+        if (Auth::attempt(['username' => $request->username, 'password' => $request->password])) {
         if ($check == 1) {
             if($siswa[0]->status == "Aktif"){
-                if (Auth::attempt(['username' => $request->username, 'password' => $request->password])) {
                     $request->session()->regenerate();
                     return back()->with('success', 'YEYY!!! Anda berhasil login');
                     } else {
@@ -124,17 +129,15 @@ class LoginController extends Controller
         }
     }
 
-    public function proses_logout(Request $request)
+    public function proses_logout()
     {
         if (Auth::user()->role_id == 2) {
+            Session::flush();
             Auth::logout();
-            $request->session()->invalidate();
-            $request->session()->regenerateToken();
             return redirect('/');
         } else {
+            Session::flush();
             Auth::logout();
-            $request->session()->invalidate();
-            $request->session()->regenerateToken();
             return redirect('pegawai/login');
         }
     }

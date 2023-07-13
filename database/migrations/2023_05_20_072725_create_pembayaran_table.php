@@ -18,7 +18,7 @@ return new class extends Migration
             $table->integer('total_bayar');
             $table->enum('tipe_pembayaran',['tunai','midtrans']);
             $table->enum('status',['Pending', 'Sukses', 'Gagal']);
-            $table->string('keterangan');
+            $table->string('keterangan')->nullable();
             $table->string('token')->nullable();
             $table->timestamps();
         });

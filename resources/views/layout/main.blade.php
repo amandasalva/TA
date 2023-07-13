@@ -104,12 +104,12 @@
                         <li class="menu-item {{ $active == 'data-guru' ? 'active' : '' }}">
                             <a href="{{ route('bendahara.data.guru') }}" class="menu-link">
                                 <i class="menu-icon tf-icons bx bxs-user-check"></i>
-                                <div>Data Guru</div>
+                                <div>Data Wali Kelas</div>
                             </a>
                         </li>
 
                         <li class="menu-item {{ $active == 'jenis-trans' ? 'active' : '' }}">
-                            <a href="{{ route('bendahara.transaksi') }}" class="menu-link">
+                            <a href="{{ route('bendahara.jenis.transaksi') }}" class="menu-link">
                                 <i class="menu-icon tf-icons bx bxs-donate-heart"></i>
                                 <div>Data Jenis Transaksi</div>
                             </a>
@@ -121,6 +121,12 @@
                                 <div>Pendaftaran</div>
                             </a>
                         </li>
+                        <li class="menu-item {{ $active == 'bendahara-transaksi' ? 'active' : '' }}">
+                            <a href="{{ route('bendahara.transaksi') }}" class="menu-link">
+                                <i class="menu-icon tf-icons bx bx-book-add"></i>
+                                <div>Transaksi</div>
+                            </a>
+                        </li>
 
                         <li class="menu-item {{ $active == 'laporan' ? 'active' : '' }}">
                             <a href="#" class="menu-link">
@@ -128,14 +134,43 @@
                                 <div>Laporan</div>
                             </a>
                         </li>
-                    @elseif (Auth::user()->role_id == 3)
-                        <li class="menu-item {{ $active == 'transaksi' ? 'active' : '' }}">
-                            <a href="#" class="menu-link">
-                                <i class="menu-icon tf-icons bx bx-book-add"></i>
-                                <div>Transaksi</div>
-                            </a>
-                        </li>
+                    @elseif (Auth::user()->role_id == 1)
                     @endif
+                    <li class="menu-item">
+                        <a href="" class="menu-link menu-toggle">
+                            <i class="menu-icon tf-icons bx bx-layout"></i>
+                            <div data-i18n="Layouts">Data Transaksi</div>
+                        </a>
+
+                        <ul class="menu-sub">
+
+                            <li class="menu-item">
+                                <a href="layouts-without-menu.html" class="menu-link">
+                                    <div data-i18n="Without menu">Transaksi Siswa Baru</div>
+                                </a>
+                            </li>
+                            <li class="menu-item {{ $active == 'transaksi' ? 'active' : '' }}">
+                                <a href="{{ route('bendahara.semua.transaksi') }}" class="menu-link">
+                                    <div data-i18n="Without navbar">Semua Transaksi</div>
+                                </a>
+                            </li>
+                            <li class="menu-item">
+                                <a href="layouts-container.html" class="menu-link">
+                                    <div data-i18n="Container">Transaksi Sukses</div>
+                                </a>
+                            </li>
+                            <li class="menu-item">
+                                <a href="layouts-fluid.html" class="menu-link">
+                                    <div data-i18n="Fluid">Transaksi Pending</div>
+                                </a>
+                            </li>
+                            <li class="menu-item">
+                                <a href="layouts-blank.html" class="menu-link">
+                                    <div data-i18n="Blank">Transaksi Gagal</div>
+                                </a>
+                            </li>
+                        </ul>
+                    </li>
 
                 </ul>
             </aside>
@@ -218,7 +253,8 @@
                                         <div class="dropdown-divider"></div>
                                     </li>
                                     <li>
-                                        <a class="dropdown-item" href="#">
+                                        <a class="dropdown-item {{ $active == 'ubah-profil' ? 'active' : '' }}"
+                                            href="#">
                                             <i class="bx bx-user me-2"></i>
                                             <span class="align-middle">Profil</span>
                                         </a>

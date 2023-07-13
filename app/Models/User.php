@@ -20,7 +20,8 @@ class User extends Authenticatable
     protected $fillable = [
         'username',
         'password',
-        'role_id'
+        'role_id',
+        'email',
     ];
 
     public function siswa()

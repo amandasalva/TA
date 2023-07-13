@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Pegawai;
 
 use App\Http\Controllers\Controller;
+use App\Models\Kelas;
 use App\Models\Pegawai;
 use App\Models\Siswa;
 use App\Models\User;
@@ -40,8 +41,9 @@ class BendaharaDataGuruController extends Controller
     public function create()
     {
         $user_id = Auth::user()->id;
+        $kelas = Kelas::all();
         $data = Pegawai::where('user_id', '=', $user_id)->first();
-        return view('u_bendahara.guru.tambah-data-guru', compact('data'));
+        return view('u_bendahara.guru.tambah-data-guru', compact('data', 'kelas'));
     }
 
     public function store(Request $request)
@@ -97,6 +99,7 @@ class BendaharaDataGuruController extends Controller
                 $guru->alamat = $data['alamat'];
                 $guru->agama = $data['agama'];
                 $guru->no_hp = $data['no_hp'];
+                $guru->kelas_id = $data['kelas'];
                 $guru->status = $data['status'];
                 // $guru->image = 'user-default.jpg';
                 $guru->save();

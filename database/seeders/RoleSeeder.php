@@ -16,7 +16,7 @@ class RoleSeeder extends Seeder
         $data = [
             ["name" => "Bendahara"],
             ["name" => "Siswa"],
-            ["name" => "Guru"],
+            ["name" => "Wali Kelas"],
             ["name" => "KepSek"],
         ];
         Role::insert($data);

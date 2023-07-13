@@ -19,6 +19,7 @@
                                     <th>No</th>
                                     <th>Nama</th>
                                     <th>Nama Pengguna</th>
+                                    <th>Kelas</th>
                                     <th>Jenis Kelamin</th>
                                     <th>Alamat</th>
                                     <th>Foto</th>
@@ -35,6 +36,7 @@
                                         <td>{{ $no++ }}</td>
                                         <td>{{ $dtguru->nama_lengkap }}</td>
                                         <td>{{ $dtguru->username }}</td>
+                                        <td>{{ $dtguru->tingkat }}</td>
                                         <td>{{ $dtguru->jk }}</td>
                                         {{-- <td>{{ \Carbon\Carbon::parse($dtguru->tgl_lahir)->locale('id')->translatedFormat('d-m-Y') }}</td> --}}
                                         <td>{{ $dtguru->alamat }}</td>

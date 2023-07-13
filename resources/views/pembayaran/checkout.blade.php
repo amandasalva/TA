@@ -1,4 +1,4 @@
-@extends('layout.main', ['title' => 'Tambah data guru - Bendahara', 'active' => 'jenis-trans'])
+@extends('layout.main', ['title' => 'Tambah data guru - Bendahara', 'active' => 'bendahara-transaksi'])
 
 @section('content')
     <div class="content-wrapper">
@@ -10,12 +10,14 @@
                             <h4 class="mb-3">Pembayaran Sekolah</h4>
                         </div>
                         <div class="card-body">
-                            <form action="" method="POST" enctype="multipart/form-data">
+                            <form action="{{ route('bendahara.create.transaksi') }}" method="POST"
+                                enctype="multipart/form-data">
                                 @csrf
                                 <div class="row mb-3">
                                     <label class="col-sm-2 col-form-label">Nama Siswa</label>
                                     <div class="col-sm-10">
                                         <select name="siswa" id="siswa" class="form-control">
+                                            <option value="">-- Pilih Siswa --</option>
                                             @foreach ($siswa as $s)
                                                 <option value="{{ $s->id }}">{{ $s->nama_lengkap }}</option>
                                             @endforeach
@@ -28,15 +30,16 @@
                                     </div>
                                 </div>
                                 <div class="row mb-3">
-                                    <label class="col-sm-2 col-form-label">Total Pembayaran</label>
+                                    <label class="col-sm-2 col-form-label">Jenis Biaya Pembayaran</label>
                                     <div class="col-sm-10">
-                                        <input type="number"
-                                            class="form-control
-                    @error('total')
-                      is-invalid
-                    @enderror"
-                                            id="total" name="total" placeholder="0" autocomplete="off" />
-                                        @error('username')
+                                        <select name="jenis" id="jenis" class="form-control">
+                                            <option value="" selected disabled>-- Pilih Pembayaran --</option>
+                                            @foreach ($jenis as $j)
+                                                <option value="{{ $j->id }}">{{ $j->nama_tagihan }} -
+                                                    {{ moneyFormat($j->nominal) }}</option>
+                                            @endforeach
+                                        </select>
+                                        @error('nama_lengkap')
                                             <div class="invalid-feedback">
                                                 {{ $message }}
                                             </div>
@@ -44,13 +47,29 @@
                                     </div>
                                 </div>
                                 <div class="row mb-3">
+                                    <label class="col-sm-2 col-form-label">Tipe Pembayaran</label>
+                                    <div class="col-sm-10">
+                                        <select name="tipe_pembayaran" id="tipe_pembayaran" class="form-control">
+                                            <option value="" selected disabled>-- Pilih Pembayaran --</option>
+                                            <option value="tunai">Tunai</option>
+                                            <option value="midtrans">Non-Tunai</option>
+                                        </select>
+                                        @error('nama_lengkap')
+                                            <div class="invalid-feedback">
+                                                {{ $message }}
+                                            </div>
+                                        @enderror
+                                    </div>
+                                </div>
+
+                                <div class="row mb-3">
                                     <label class="col-sm-2 col-form-label">Keterangan</label>
                                     <div class="col-sm-10">
                                         <input type="text"
                                             class="form-control
-                    @error('keterangan')
-                      is-invalid
-                    @enderror"
+                                            @error('keterangan')
+                                            is-invalid
+                                            @enderror"
                                             id="keterangan" name="keterangan" placeholder="Keterangan" autocomplete="off" />
                                         @error('agama')
                                             <div class="invalid-feedback">

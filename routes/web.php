@@ -1,20 +1,25 @@
 <?php
 
+use App\Http\Controllers\Payment;
+use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\LoginController;
 use App\Http\Controllers\MidtransController;
+use App\Http\Controllers\LupaSandiController;
+use App\Http\Controllers\ForgotPasswordController;
 use App\Http\Controllers\Pegawai\BendaharaDataGuru;
-use App\Http\Controllers\Pegawai\BendaharaDataGuruController;
-use App\Http\Controllers\Pegawai\BendaharaDataSiswaController;
+use App\Http\Controllers\Siswa\LoginSiswaController;
+use App\Http\Controllers\Siswa\BerandaSiswaController;
+use App\Http\Controllers\Pegawai\BerandaGuruController;
+use App\Http\Controllers\Pegawai\LoginPegawaiController;
+use App\Http\Controllers\Pegawai\BerandaKepsekController;
 use App\Http\Controllers\Pegawai\BendaharaKelasController;
 use App\Http\Controllers\Pegawai\BendaharaPendaftaranSiswa;
-use App\Http\Controllers\Pegawai\BendaharaTahunPelajaranController;
 use App\Http\Controllers\Pegawai\BerandaBendaharaController;
-use App\Http\Controllers\Pegawai\BerandaGuruController;
-use App\Http\Controllers\Pegawai\BerandaKepsekController;
-use App\Http\Controllers\Pegawai\LoginPegawaiController;
-use App\Http\Controllers\Siswa\BerandaSiswaController;
-use App\Http\Controllers\Siswa\LoginSiswaController;
-use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\Pegawai\BendaharaDataGuruController;
+use App\Http\Controllers\Pegawai\BendaharaDataSiswaController;
+use App\Http\Controllers\Pegawai\BendaharaJnsTransaksiController;
+use App\Http\Controllers\Pegawai\BendaharaTahunPelajaranController;
+use App\Http\Controllers\Pegawai\JenisTransaksiBendaharaController;
 
 /*
 |--------------------------------------------------------------------------
@@ -31,10 +36,18 @@ Route::get('/', function () {
     return view('layout.landpage');
 })->name('landingpage');
 
+Route::get('/bayar', [Payment::class, 'index']);
+
 Route::get('/payment', [MidtransController::class, 'createPayment']);
 
 
 Route::post('pegawai/proses/login', [LoginController::class, 'prosesLoginPegawai'])->name('pegawai.proses.login');
+// Route::group(['middleware' => 'auth'], function() {
+// });
+Route::get('password/email', [ForgotPasswordController::class, 'showLinkRequestForm'])->name('password.email');
+Route::post('password/email', [ForgotPasswordController::class, 'sendResetLinkEmail'])->name('password.request');
+Route::get('lupa/sandi', [ForgotPasswordController::class, 'showLinkRequestForm'])->name('lupa.sandi');
+
 Route::post('siswa/proses/login', [LoginController::class, 'prosesLoginSiswa'])->name('siswa.proses.login');
 Route::post('/logout', [LoginController::class, 'proses_logout'])->name('logout');
 Route::prefix('/siswa')->group(function() {
@@ -93,6 +106,14 @@ Route::prefix('/bendahara')->group(function() {
 
         Route::controller(MidtransController::class)->group(function() {
             Route::get('/transaksi', 'index')->name('bendahara.transaksi');
+            Route::post('/transaksi', 'createPayment')->name('bendahara.create.transaksi');
+            Route::get('/semua/transaksi', 'allTransaction')->name('bendahara.semua.transaksi');
+        });
+
+        Route::controller(BendaharaJnsTransaksiController::class)->group(function() {
+            Route::get('jenis/transaksi', 'index')->name('bendahara.jenis.transaksi');
+            Route::get('riwayat/nominal/transaksi', 'riwayat')->name('bendahara.riwayat.nominal.transaksi');
+            Route::post('jenis/transaksi/{id}', 'ubah_nominal')->name('bendahara.edit.jenis.transaksi');
         });
     });
 });

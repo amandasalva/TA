@@ -23,12 +23,12 @@ class BendaharaDataSiswaController extends Controller
         while (User::where('username', $username)->exists()) {
             $username = strtolower(Str::random(6));
         }
-        $siswa = DB::table('siswa')
-            ->join('users', 'siswa.user_id', '=', 'users.id')
+        $siswa = DB::table('siswas')
+            ->join('users', 'siswas.user_id', '=', 'users.id')
             ->where('users.role_id', '=', '2')
             ->select('*',
-            'siswa.id')
-            ->orderBy('siswa.id', 'DESC')
+            'siswas.id')
+            ->orderBy('siswas.id', 'DESC')
             ->get();
 
         return view('u_bendahara.siswa.data-siswa', compact('siswa','username'));
