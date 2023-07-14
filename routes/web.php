@@ -46,7 +46,8 @@ Route::post('pegawai/proses/login', [LoginController::class, 'prosesLoginPegawai
 // });
 Route::get('password/email', [ForgotPasswordController::class, 'showLinkRequestForm'])->name('password.email');
 Route::post('password/email', [ForgotPasswordController::class, 'sendResetLinkEmail'])->name('password.request');
-Route::get('lupa/sandi', [ForgotPasswordController::class, 'showLinkRequestForm'])->name('lupa.sandi');
+Route::get('password/reset/{token}', [ForgotPasswordController::class, 'showResetForm'])->name('reset.password.form');
+Route::post('password/reset', [ForgotPasswordController::class, 'resetPassword'])->name('reset.password');
 
 Route::post('siswa/proses/login', [LoginController::class, 'prosesLoginSiswa'])->name('siswa.proses.login');
 Route::post('/logout', [LoginController::class, 'proses_logout'])->name('logout');

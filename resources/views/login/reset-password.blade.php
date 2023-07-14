@@ -1,4 +1,4 @@
-@extends('layout.auth', ['title' => 'Login Pegawai'])
+@extends('layout.auth', ['title' => 'Atur Ulang Kata Sandi'])
 
 @section('content')
     <div class="container-xxl">
@@ -7,40 +7,32 @@
                 <div class="card">
                     <div class="card-body">
                         <!-- Logo -->
-                        <div class="app-brand justify-content-center gap-2">
+                        {{-- <div class="app-brand justify-content-center gap-2">
                             <div class="app-brand-link">
                                 <span class="app-brand-logo demo">
                                     <img src="../img/logo.ico" alt="Logo">
                                 </span>
                             </div>
-                            <span class="app-brand-text demo fw-bolder" style="color:#1d751d">Siakas</span>
-                        </div>
-                        <p align="center">Silahkan masuk untuk mengakses aplikasi</p>
+                            <span class="app-brand-text demo fw-bolder" style="color:#1d751d">Atur Ulang Kata Sandi</span>
+                        </div> --}}
+                        <h3 align="center">Atur Ulang Kata Sandi</h3>
                         <!-- /Logo -->
-                        <form class="mb-3" action="{{ route('pegawai.proses.login') }}" method="POST">
-                            @csrf
-                            <div class="mb-3">
-                                <label for="username" class="form-label">Nama Pengguna</label>
-                                <input type="text"
-                                    class="form-control
-                                @error('username')
-                                    is-invalid
-                                @enderror"
-                                    name="username" placeholder="Masukkan nama pengguna" value="{{ old('username') }}"
-                                    autocomplete="off" autofocus />
-                                @error('username')
-                                    <div class="invalid-feedback">
-                                        {{ $message }}
-                                    </div>
-                                @enderror
-                            </div>
-                            <div class="mb-3 form-password-toggle">
-                                <div class="d-flex justify-content-between">
-                                    <label class="form-label" for="password">Kata Sandi</label>
-                                    <a href="{{ route('password.email') }}">
-                                        <small style="color: rgba(255, 115, 0, 0.863)">Lupa Sandi?</small>
-                                    </a>
+                        <form class="mb-3" action="{{ route('reset.password') }}" method="POST">
+                            @if (Session::get('fail'))
+                                <div class="alert alert-danger">
+                                    {{ Session::get('fail') }}
                                 </div>
+                            @endif
+
+                            @if (Session::get('success'))
+                                <div class="alert alert-success">
+                                    {{ Session::get('success') }}
+                                </div>
+                            @endif
+                            @csrf
+                            <input type="hidden" name="token" value="{{ $token }}">
+                            <div class="mb-3 form-password-toggle">
+                                <label class="form-label" for="password">Kata Sandi</label>
                                 <div class="input-group input-group-merge">
                                     <input type="password"
                                         class="form-control
@@ -62,7 +54,7 @@
                                 <button class="btn d-grid w-100"
                                     style="background: linear-gradient(to bottom right, #00cc00 0%, #00ffff 96%);
                             color: white; font-weight:bold;"
-                                    type="submit">Login </button>
+                                    type="submit">Login</button>
                             </div>
                         </form>
                     </div>
