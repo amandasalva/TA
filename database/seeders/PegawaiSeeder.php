@@ -16,6 +16,8 @@ class PegawaiSeeder extends Seeder
     {
         Pegawai::create([
             'user_id' => 1,
+            'kelas_id' => null,
+            'tahun_ajarans_id' => null,
             'nama_lengkap' => 'Bendahara',
             'tempat_lahir' => 'Cilacap',
             'tgl_lahir' => Carbon::now(),

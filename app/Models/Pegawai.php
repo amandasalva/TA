@@ -20,6 +20,8 @@ class Pegawai extends Model
         'no_hp',
         'status',
         'image',
+        'kelas_id',
+        'tahun_ajarans_id',
     ];
 
     // Akses mutator untuk mengatur nilai tgl_lahir

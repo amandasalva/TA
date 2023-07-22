@@ -22,17 +22,26 @@ class BendaharaDataGuruController extends Controller
         $user_id = Auth::user()->id;
         $data = Pegawai::where('user_id', '=', $user_id)->first();
         $guru = DB::table('pegawais')
-            ->join('users', 'pegawais.user_id', '=', 'users.id')
-            ->where('users.role_id', '=', '3')
-            ->select( '*',
-                // 'users.username',
-                // 'pegawais.alamat',
-                // 'pegawais.image',
-                // 'pegawais.status',
-                // 'pegawais.tgl_lahir',
-                // 'pegawais.tempat_lahir',
-                'pegawais.id',
+            ->select(
+                'pegawais.id AS pegawai_id',
+                'pegawais.user_id',
+                'pegawais.nama_lengkap',
+                'pegawais.tempat_lahir',
+                'pegawais.tgl_lahir',
+                'pegawais.jk',
+                'pegawais.alamat',
+                'pegawais.agama',
+                'pegawais.no_hp',
+                'pegawais.status',
+                'pegawais.image',
+                'kelas.id AS kelas_id',
+                'kelas.tingkat',
+                'users.username',
+                'users.email',
             )
+            ->join('users', 'pegawais.user_id', '=', 'users.id')
+            ->leftJoin('kelas', 'pegawais.kelas_id', '=', 'kelas.id')
+            ->where('users.role_id', '=', '3')
             ->get();
             // dd($guru);
         return view('u_bendahara.guru.data-guru', compact('data', 'guru'));
@@ -57,8 +66,7 @@ class BendaharaDataGuruController extends Controller
             'agama'         => 'required',
             'username'      => 'required|unique:users,username',
             'no_hp'         => 'required|numeric|digits_between:11,13',
-            'status'        => 'required',
-            'image'         => 'nullable|image|mimes:jpeg,jpg,png|max:2000',
+            'image'         => 'nullable|image|mimes:jpeg,jpg,png|max:1000',
         ],
         [
             'nama_lengkap.required' => 'Nama lengkap wajib diisi',
@@ -70,7 +78,6 @@ class BendaharaDataGuruController extends Controller
             'no_hp.required' => 'No hp wajib diisi',
             'no_hp.numeric' => 'No hp diisi dengan format angka',
             'no_hp.digits_between' => 'Isikan no hp dengan panjang 11-13 angka',
-            'status.required' => 'Status wajib diisi',
             'username.required' => 'Kolom username harus diisi.',
             'username.unique' => 'Nama pengguna sudah digunakan. Harap pilih Nama pengguna lain.',
             'image.image' => 'Gambar harus berupa jpeg, jpg, atau png',
@@ -81,13 +88,14 @@ class BendaharaDataGuruController extends Controller
         
         $cekData1 = User::where('username', $data['username'])->exists();
         if ($cekData1) {
-            return redirect()->back()->with('error', 'UPS🤐, Data sudah ada')->withInput();
+            return redirect()->back()->with('error', 'UPS🤐, Data sudah ada')->withInput($request->all());
         } else {
             if ($request->file('image') == "") {
                 $user = new User();
                 $user->username = $data['username'];
                 $user->password = Hash::make('absdmulia05');
                 $user->role_id = '3';
+                $user->email = $data['email'];
                 $user->save();
     
                 $guru = new Pegawai();
@@ -100,7 +108,8 @@ class BendaharaDataGuruController extends Controller
                 $guru->agama = $data['agama'];
                 $guru->no_hp = $data['no_hp'];
                 $guru->kelas_id = $data['kelas'];
-                $guru->status = $data['status'];
+                $guru->status = 'Aktif';
+                // $guru->status = $data['status'];
                 // $guru->image = 'user-default.jpg';
                 $guru->save();
             } else {
@@ -112,6 +121,7 @@ class BendaharaDataGuruController extends Controller
                 $user->username = $data['no_hp'];
                 $user->password = Hash::make('absdmulia05');
                 $user->role_id = '3';
+                $user->email = $data['email'];
                 $user->save();
     
                 $guru = new Pegawai();
@@ -123,7 +133,9 @@ class BendaharaDataGuruController extends Controller
                 $guru->alamat = $data['alamat'];
                 $guru->agama = $data['agama'];
                 $guru->no_hp = $data['no_hp'];
-                $guru->status = $data['status'];
+                $guru->kelas_id = $data['kelas'];
+                $guru->status = 'Aktif';
+                // $guru->status = $data['status'];
                 $guru->image = $image->hashName();
                 $guru->save();
             }
@@ -272,7 +284,7 @@ class BendaharaDataGuruController extends Controller
                 $data->delete();
                 return response()->json([
                     'success' => true,
-                    'message' => 'Data '. $data->nama_lengkap . ' berhasil dihapus.'
+                    'message' => 'Data ' . $data->nama_lengkap . ' berhasil dihapus.'
                 ]);
             }
             return response()->json([

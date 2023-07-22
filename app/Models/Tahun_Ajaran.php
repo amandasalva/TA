@@ -11,7 +11,9 @@ class Tahun_Ajaran extends Model
 
     protected $table = 'tahun_ajarans';
     protected $fillable = [
-        'tahun',
+        'tahun1',
+        'tahun2',
+        'tahunAjaran',
         'semester',
     ];
 

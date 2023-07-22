@@ -165,8 +165,8 @@ a.bg-primary:focus {
 .pagination li.active > a:not(.page-link),
 .pagination li.active > a:not(.page-link):hover,
 .pagination li.active > a:not(.page-link):focus {
-    border-color: #696cff;
-    background-color: #696cff;
+    border-color: #12af12;
+    background-color: #12af12;
     color: #fff;
     box-shadow: 0 0.125rem 0.25rem rgba(105, 108, 255, 0.4);
 }
@@ -373,7 +373,7 @@ button.list-group-item-primary.active {
 .nav-pills .nav-link.active,
 .nav-pills .nav-link.active:hover,
 .nav-pills .nav-link.active:focus {
-    background-color: #696cff;
+    background-color: #581c60;
     color: #fff;
     box-shadow: 0 2px 4px 0 rgba(105, 108, 255, 0.4);
 }
@@ -397,7 +397,7 @@ button.list-group-item-primary.active {
 }
 .form-check-input:checked,
 .form-check-input[type="checkbox"]:indeterminate {
-    background-color: #696cff;
+    background-color: #14c90e;
     border-color: #696cff;
     box-shadow: 0 2px 4px 0 rgba(105, 108, 255, 0.4);
 }

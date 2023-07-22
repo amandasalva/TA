@@ -29,8 +29,25 @@
                       is-invalid
                     @enderror"
                                             id="nama_lengkap" name="nama_lengkap" placeholder="Amanda Salva Balesta"
-                                            autocomplete="off" />
+                                            autocomplete="off" value="{{ old('nama_lengkap') }}" />
                                         @error('nama_lengkap')
+                                            <div class="invalid-feedback">
+                                                {{ $message }}
+                                            </div>
+                                        @enderror
+                                    </div>
+                                </div>
+                                <div class="row mb-3">
+                                    <label class="col-sm-2 col-form-label">Email</label>
+                                    <div class="col-sm-10">
+                                        <input type="email"
+                                            class="form-control
+                    @error('email')
+                      is-invalid
+                    @enderror"
+                                            id="email" name="email" placeholder="Amanda Salva Balesta"
+                                            autocomplete="off" value="{{ old('email') }}" />
+                                        @error('email')
                                             <div class="invalid-feedback">
                                                 {{ $message }}
                                             </div>
@@ -60,7 +77,7 @@
                       is-invalid
                     @enderror"
                                             id="nama_wali" name="nama_wali" placeholder="Amanda Salva Balesta"
-                                            autocomplete="off" />
+                                            autocomplete="off" value="{{ old('nama_wali') }}" />
                                         @error('nama_wali')
                                             <div class="invalid-feedback">
                                                 {{ $message }}
@@ -76,7 +93,8 @@
                     @error('agama')
                       is-invalid
                     @enderror"
-                                            id="agama" name="agama" placeholder="Islam" autocomplete="off" />
+                                            id="agama" name="agama" placeholder="Islam" autocomplete="off"
+                                            value="{{ old('agama') }}" />
                                         @error('agama')
                                             <div class="invalid-feedback">
                                                 {{ $message }}
@@ -92,7 +110,8 @@
                     @error('no_hp')
                       is-invalid
                     @enderror"
-                                            id="no_hp" name="no_hp" placeholder="0812345678234" autocomplete="off" />
+                                            id="no_hp" name="no_hp" placeholder="0812345678234" autocomplete="off"
+                                            value="{{ old('no_hp') }}" />
                                         @error('no_hp')
                                             <div class="invalid-feedback">
                                                 {{ $message }}
@@ -108,8 +127,8 @@
                     @error('tempat_lahir')
                       is-invalid
                     @enderror"
-                                            id="tempat_lahir" name="tempat_lahir" placeholder="Cilacap"
-                                            autocomplete="off" />
+                                            id="tempat_lahir" name="tempat_lahir" placeholder="Cilacap" autocomplete="off"
+                                            value="{{ old('tempat_lahir') }}" />
                                         @error('tempat_lahir')
                                             <div class="invalid-feedback">
                                                 {{ $message }}
@@ -125,7 +144,8 @@
                     @error('tgl_lahir')
                       is-invalid
                     @enderror"
-                                            id="tgl_lahir" name="tgl_lahir" placeholder="22/01/2003" />
+                                            id="tgl_lahir" name="tgl_lahir" placeholder="22/01/2003"
+                                            value="{{ old('tgl_lahir') }}" />
                                         @error('tgl_lahir')
                                             <div class="invalid-feedback">
                                                 {{ $message }}
@@ -166,13 +186,8 @@
                                 <div class="row mb-3">
                                     <label class="col-sm-2 col-form-label">alamat</label>
                                     <div class="col-sm-10">
-                                        <input type="text"
-                                            class="form-control
-                    @error('alamat')
-                      is-invalid
-                    @enderror"
-                                            id="alamat" name="alamat" placeholder="Jalan Darusman"
-                                            autocomplete="off" />
+                                        <textarea name="alamat" id="alamat" rows="2" class="form-control"
+                                            placeholder="Jalan Darusman RT 002 RW 006 Karangtalun, Cilacap Utara, Cilacap" autocomplete="off"></textarea>
                                         @error('alamat')
                                             <div class="invalid-feedback">
                                                 {{ $message }}
@@ -192,17 +207,19 @@
                                         </select>
                                     </div>
                                 </div>
+                                {{-- <div class="row mb-3">
+                                    <label class="col-sm-2 col-form-label">Kelas</label>
+                                    <div class="col-md-10">
+                                        <input class="form-control" type="text" name="kelas" id="kelas"
+                                            value="{{ $kelas }}" readonly>
+                                    </div>
+                                </div> --}}
+
                                 <div class="row mb-3">
                                     <label class="col-sm-2 col-form-label">Kelas</label>
                                     <div class="col-md-10">
-                                      <input class="form-control" type="text" name="kelas" id="kelas" value="{{ $kelas }}" readonly>
-                                        {{-- <select class="form-control" name="kelas" id="kelas">
-                                            @foreach ($kelas as $k)
-                                                @if ($k->tingkat == 'Kelas 1')
-                                                    <option value="{{ $k->tingkat }}">{{ $k->tingkat }}</option>
-                                                @endif
-                                            @endforeach
-                                        </select> --}}
+                                        <input class="form-control" type="text" name="kelas" id="kelas"
+                                            value="1" readonly>
                                     </div>
                                 </div>
                                 <div class="mb-3 row">

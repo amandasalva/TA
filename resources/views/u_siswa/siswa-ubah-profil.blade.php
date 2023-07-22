@@ -1,4 +1,4 @@
-@extends('layout.main', ['title' => 'Ubah Profil - Bendahara', 'active' => 'ubah-profil'])
+@extends('layout.main', ['title' => 'Ubah Profil - Siswa', 'active' => 'ubah profil'])
 
 @section('content')
     <div class="content-wrapper">
@@ -6,7 +6,7 @@
             <div class="row">
                 <div class="col-md-12">
                     <div class="card mb-4">
-                        <h5 class="card-header">Detail Profil</h5>
+                        <h5 class="card-header">Detail Profil Siswa</h5>
                         <!-- Account -->
                         <div class="card-body">
                             <div class="d-flex align-items-start align-items-sm-center gap-4">

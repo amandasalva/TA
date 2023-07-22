@@ -57,22 +57,23 @@
                                         <span class="badge bg-label-danger me-1">{{ $dtguru->status }}</span></td>
                                 @endif
                                 <td>
-                                    <form action="{{ route('bendahara.hapus.data', $dtguru->id) }}" method="POST">
+                                    <form action="{{ route('bendahara.hapus.data', $dtguru->pegawai_id) }}" method="POST">
                                         @csrf
                                         @method('DELETE')
                                         <button type="button" class="btn btn-dark" data-bs-toggle="modal"
-                                            data-bs-target="#modal-detail{{ $dtguru->id }}" style="padding: 7px"><i
+                                            data-bs-target="#modal-detail{{ $dtguru->pegawai_id }}" style="padding: 7px"><i
                                                 class='bx bxs-door-open'></i>
                                         </button>
-                                        <a href="{{ route('bendahara.edit.guru', $dtguru->id) }}" class="btn btn-warning"
-                                            type="button" style="padding: 7px"><i class='bx bxs-edit-alt'></i></a>
+                                        <a href="{{ route('bendahara.edit.guru', $dtguru->pegawai_id) }}"
+                                            class="btn btn-warning" type="button" style="padding: 7px"><i
+                                                class='bx bxs-edit-alt'></i></a>
                                         <button type="submit" style="padding: 7px; margin-right: 10px;"
-                                            onclick="deleteUser(this)" data-id="{{ $dtguru->id }}"
+                                            onclick="deleteUser(this)" data-id="{{ $dtguru->pegawai_id }}"
                                             class="btn btn-danger"><i class='bx bx-trash'></i></button>
                                     </form>
                                 </td>
                                 </tr>
-                                <div class="modal fade" id="modal-detail{{ $dtguru->id }}" tabindex="-1"
+                                <div class="modal fade" id="modal-detail{{ $dtguru->pegawai_id }}" tabindex="-1"
                                     aria-hidden="true">
                                     <div class="modal-dialog modal-dialog-scrollable" role="document">
                                         <div class="modal-content">

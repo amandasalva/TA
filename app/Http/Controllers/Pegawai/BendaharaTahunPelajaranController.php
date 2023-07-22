@@ -16,14 +16,20 @@ class BendaharaTahunPelajaranController extends Controller
     {
         $user_id = Auth::user()->id;
         $data = Pegawai::where('user_id', '=', $user_id)->first();
-        $tahun = Tahun_Ajaran::all();
-        return view('u_bendahara.tahunAjaran.tahun-pelajaran', compact('data', 'tahun'));
+        // $tahun = Tahun_Ajaran::orderBy('tahun', 'asc')->get();
+        $tahun = Tahun_Ajaran::orderBy('tahun', 'asc')
+        //orderbyraw itu mengurutkan dengan ekspresi sql (case when)
+        //case when mengurutkan bedasarkan ganjil genap, 2021/ ganjil 1 genap 2
+        ->orderByRaw("CASE WHEN SUBSTRING_INDEX(semester, '/', 1) = 'Ganjil' THEN 1 ELSE 2 END ASC")
+                    ->get();
+        return view('u_bendahara.tahunAjaran.tahun-pelajaran', compact('data'));
     }
     
     public function create()
     {
         $user_id = Auth::user()->id;
         $data = Pegawai::where('user_id', '=', $user_id)->first();
+        
         return view('u_bendahara.tahunAjaran.tambah-tahun-pelajaran', compact('data'));
     }
 

@@ -72,17 +72,17 @@ class ForgotPasswordController extends Controller
             return back()->withInput()->with('error', 'Invalid token');
         } else
         {
-            User::where('email', $request->email)->update([
+            User::where('email', $check_token->email)->update([
                 'password' => Hash::make($request->password)
             ]);
 
             DB::table('password_reset_tokens')->where([
-                'email' => $request->email
+                'email' => $check_token->email
             ])->delete();
 
             return redirect()->route('pegawai.login')
             ->with('info', 'Kata sandi Anda berhasil diperbaharui! Anda dapat masuk dengan kata sandi yang baru ini')
-            ->with('verifiedEmail', $request->email);
+            ->with('verifiedEmail', $check_token->email);
         }
     }
 }

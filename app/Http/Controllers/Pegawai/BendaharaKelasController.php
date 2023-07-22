@@ -23,13 +23,13 @@ class BendaharaKelasController extends Controller
         ]);
         
         if ($validator->fails()) {
-            return redirect()->back()->with('error', 'UPS🤐, Data sudah ada');
+            return redirect()->back()->with('error', 'UPS🤐, Kelas sudah ada');
         }else{
             $kelas = new Kelas();
             $kelas->tingkat = $request->tingkat;
             $kelas->save();
             
-            return redirect('bendahara/data/kelas');
+            return redirect('bendahara/data/kelas')->with('success', 'Kelas berhasil ditambahkan');
         }
     }
 }

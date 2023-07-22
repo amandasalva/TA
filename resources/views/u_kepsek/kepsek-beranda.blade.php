@@ -1,1 +1,1 @@
-@extends('layout.main', ['title' => 'Beranda Kepala Sekolah'])
+@extends('layout.main', ['title' => 'Beranda Kepala Sekolah', 'active' => 'beranda'])

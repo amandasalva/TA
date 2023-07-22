@@ -96,6 +96,22 @@
                                     </div>
                                 </div>
                                 <div class="row mb-3">
+                                    <label class="col-sm-2 col-form-label">email</label>
+                                    <div class="col-sm-10">
+                                        <input type="email"
+                                            class="form-control
+                    @error('email')
+                      is-invalid
+                    @enderror"
+                                            id="email" name="email" placeholder="Cilacap" autocomplete="off" />
+                                        @error('email')
+                                            <div class="invalid-feedback">
+                                                {{ $message }}
+                                            </div>
+                                        @enderror
+                                    </div>
+                                </div>
+                                <div class="row mb-3">
                                     <label class="col-sm-2 col-form-label">tanggal lahir</label>
                                     <div class="col-sm-10">
                                         <input type="date"
@@ -149,7 +165,8 @@
                                             @error('alamat')
                                               is-invalid
                                             @enderror"
-                                            id="alamat" name="alamat" placeholder="Jalan Darusman" autocomplete="off" />
+                                            id="alamat" name="alamat" placeholder="Jalan Darusman"
+                                            autocomplete="off" />
                                         @error('alamat')
                                             <div class="invalid-feedback">
                                                 {{ $message }}
@@ -168,55 +185,6 @@
                                         </select>
                                     </div>
                                 </div>
-                                <div class="mb-3 row">
-                                    <label class="col-md-2 col-form-label">Status</label>
-                                    <div class="col-md-10">
-                                        <div class="form-check form-check-inline">
-                                            <input name="status"
-                                                class="form-check-input
-                                                @error('status')
-                                                  is-invalid
-                                                @enderror"
-                                                type="radio" value="aktif"
-                                                {{ old('status') == 'aktif' ? 'checked=' . '"' . 'checked' . '"' : '' }}>
-                                            <label class="form-check-label">Aktif</label>
-                                        </div>
-                                        {{-- <div class="form-check form-check-inline">
-                      <input name="status" class="form-check-input
-                      @error('status')
-                        is-invalid
-                      @enderror" type="radio" value="non-aktif" {{ old('status')=="non-aktif" ? 'checked='.'"'.'checked'.'"' : '' }}>
-                      <label class="form-check-label">Non-Aktif</label>
-                    </div> --}}
-                                    </div>
-                                </div>
-                                {{-- <div class="row mb-3 form-password-toggle">
-                  <label class="col-sm-2 col-form-label">password</label>
-                  <div class="input-group-merge col-sm-10">
-                    <input type="password" class="form-control
-                    @error('password')
-                      is-invalid
-                    @enderror" id="password" name="password" placeholder="Jalan Darusman" />
-                    <span class="input-group-text cursor-pointer"><i class="bx bx-hide"></i></span>
-                    @error('password')
-                    <div class="invalid-feedback">
-                      {{ $message }}
-                    </div>
-                    @enderror
-                  </div>
-                </div> --}}
-                                {{-- <div class="mb-3 row">
-                  <label class="col-md-2 col-form-label">Foto</label>
-                  <div class="col-md-10">
-                      <input class="form-control" type="file" name="image" placeholder="image">
-                      <span style="color: #fa6801">
-                          @error('image')
-                              {{ $message }}
-                          @enderror
-                      </span>
-                  </div>
-                </div> --}}
-
                                 <div class="mb-3 row">
                                     <label class="col-md-2 col-form-label">Foto</label>
                                     <div class="col-md-10">

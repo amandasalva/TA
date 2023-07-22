@@ -14,6 +14,8 @@ return new class extends Migration
         Schema::create('pegawais', function (Blueprint $table) {
             $table->id();
             $table->foreignId('user_id')->constrained();
+            $table->foreignId('kelas_id')->nullable()->constrained();
+            $table->foreignId('tahun_ajarans_id')->nullable()->constrained();
             $table->string('nama_lengkap');
             $table->string('tempat_lahir');
             $table->date('tgl_lahir');
@@ -21,7 +23,7 @@ return new class extends Migration
             $table->string('alamat');
             $table->string('agama');
             $table->string('no_hp');
-            $table->enum('status', ['aktif', 'non-aktif']);
+            $table->enum('status', ['Aktif', 'Non-aktif']);
             $table->string('image')->nullable();
             $table->timestamps();
         });

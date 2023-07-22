@@ -11,20 +11,22 @@
                 <div class="col-xxl">
                     <div class="card mb-4">
                         <div class="card-header d-flex align-items-center justify-content-between">
-                            <h4 class="mb-3">Tambah Data Siswa</h4>
+                            <h4 class="mb-4">Tambah Data Siswa</h4> <br>
+                            <p>Semua data wajib diisi kecuali foto</p>
                         </div>
                         <div class="card-body">
                             <form action="{{ route('bendahara.store.siswa') }}" method="POST" enctype="multipart/form-data">
                                 @csrf
                                 <div class="row mb-3">
-                                    <label class="col-sm-2 col-form-label">NIS</label>
+                                    <label class="col-sm-2 col-form-label">NIS <span style="color: #fa6801">*</span></label>
                                     <div class="col-sm-10">
-                                        <input type="text"
+                                        <input type="text" maxlength="4"
                                             class="form-control
                     @error('nis')
                       is-invalid
                     @enderror"
-                                            id="nis" name="nis" autocomplete="off" />
+                                            id="nis" name="nis" value="{{ old('nis') }}"
+                                            placeholder="Masukkan NIS..." autocomplete="off" />
                                         @error('nis')
                                             <div class="invalid-feedback">
                                                 {{ $message }}
@@ -33,15 +35,16 @@
                                     </div>
                                 </div>
                                 <div class="row mb-3">
-                                    <label class="col-sm-2 col-form-label">Nama Lengkap</label>
+                                    <label class="col-sm-2 col-form-label">Nama Lengkap <span
+                                            style="color: #fa6801">*</span></label>
                                     <div class="col-sm-10">
                                         <input type="text"
                                             class="form-control
                     @error('nama_lengkap')
                       is-invalid
                     @enderror"
-                                            id="nama_lengkap" name="nama_lengkap" placeholder="Amanda Salva Balesta"
-                                            autocomplete="off" />
+                                            id="nama_lengkap" name="nama_lengkap" value="{{ old('nama_lengkap') }}"
+                                            placeholder="Masukan nama lengkap siswa..." autocomplete="off" />
                                         @error('nama_lengkap')
                                             <div class="invalid-feedback">
                                                 {{ $message }}
@@ -50,15 +53,16 @@
                                     </div>
                                 </div>
                                 <div class="row mb-3">
-                                    <label class="col-sm-2 col-form-label">Nama Wali</label>
+                                    <label class="col-sm-2 col-form-label">Nama Wali <span
+                                            style="color: #fa6801">*</span></label>
                                     <div class="col-sm-10">
                                         <input type="text"
                                             class="form-control
                     @error('nama_wali')
                       is-invalid
                     @enderror"
-                                            id="nama_wali" name="nama_wali" placeholder="Amanda Salva Balesta"
-                                            autocomplete="off" />
+                                            id="nama_wali" name="nama_wali" value="{{ old('nama_wali') }}"
+                                            placeholder="Masukan nama wali/orang tua siswa..." autocomplete="off" />
                                         @error('nama_wali')
                                             <div class="invalid-feedback">
                                                 {{ $message }}
@@ -66,14 +70,14 @@
                                         @enderror
                                     </div>
                                 </div>
-                                <div class="row mb-3">
+                                {{-- <div class="row mb-3">
                                     <label class="col-sm-2 col-form-label">agama</label>
                                     <div class="col-sm-10">
                                         <input type="text"
                                             class="form-control
-                    @error('agama')
-                      is-invalid
-                    @enderror"
+                                            @error('agama')
+                                            is-invalid
+                                            @enderror"
                                             id="agama" name="agama" placeholder="Islam" autocomplete="off" />
                                         @error('agama')
                                             <div class="invalid-feedback">
@@ -81,16 +85,18 @@
                                             </div>
                                         @enderror
                                     </div>
-                                </div>
+                                </div> --}}
                                 <div class="row mb-3">
-                                    <label class="col-sm-2 col-form-label">no hp</label>
+                                    <label class="col-sm-2 col-form-label">no hp <span
+                                            style="color: #fa6801">*</span></label>
                                     <div class="col-sm-10">
                                         <input type="text"
                                             class="form-control
                     @error('no_hp')
                       is-invalid
                     @enderror"
-                                            id="no_hp" name="no_hp" placeholder="0812345678234" autocomplete="off" />
+                                            id="no_hp" name="no_hp" value="{{ old('no_hp') }}"
+                                            placeholder="Masukan nomor telepon..." autocomplete="off" />
                                         @error('no_hp')
                                             <div class="invalid-feedback">
                                                 {{ $message }}
@@ -99,15 +105,16 @@
                                     </div>
                                 </div>
                                 <div class="row mb-3">
-                                    <label class="col-sm-2 col-form-label">tempat lahir</label>
+                                    <label class="col-sm-2 col-form-label">tempat lahir <span
+                                            style="color: #fa6801">*</span></label>
                                     <div class="col-sm-10">
                                         <input type="text"
                                             class="form-control
                     @error('tempat_lahir')
                       is-invalid
                     @enderror"
-                                            id="tempat_lahir" name="tempat_lahir" placeholder="Cilacap"
-                                            autocomplete="off" />
+                                            id="tempat_lahir" name="tempat_lahir" value="{{ old('tempat_lahir') }}"
+                                            placeholder="Masukan tempat lahir..." autocomplete="off" />
                                         @error('tempat_lahir')
                                             <div class="invalid-feedback">
                                                 {{ $message }}
@@ -116,14 +123,16 @@
                                     </div>
                                 </div>
                                 <div class="row mb-3">
-                                    <label class="col-sm-2 col-form-label">tanggal lahir</label>
-                                    <div class="col-sm-10">
+                                    <label class="col-sm-2 col-form-label">tanggal lahir <span
+                                            style="color: #fa6801">*</span></label>
+                                    <div class="col-sm-3">
                                         <input type="date"
                                             class="form-control
                     @error('tgl_lahir')
                       is-invalid
                     @enderror"
-                                            id="tgl_lahir" name="tgl_lahir" placeholder="22/01/2003" />
+                                            id="tgl_lahir" name="tgl_lahir" value="{{ old('tgl_lahir') }}"
+                                            placeholder="Masukkan tanggal lahir..." />
                                         @error('tgl_lahir')
                                             <div class="invalid-feedback">
                                                 {{ $message }}
@@ -132,7 +141,8 @@
                                     </div>
                                 </div>
                                 <div class="mb-3 row">
-                                    <label class="col-md-2 col-form-label">jenis kelamin</label>
+                                    <label class="col-md-2 col-form-label">jenis kelamin <span
+                                            style="color: #fa6801">*</span></label>
                                     <div class="col-md-10">
                                         <div class="form-check form-check-inline">
                                             <input name="jk"
@@ -164,13 +174,8 @@
                                 <div class="row mb-3">
                                     <label class="col-sm-2 col-form-label">alamat</label>
                                     <div class="col-sm-10">
-                                        <input type="text"
-                                            class="form-control
-                    @error('alamat')
-                      is-invalid
-                    @enderror"
-                                            id="alamat" name="alamat" placeholder="Jalan Darusman"
-                                            autocomplete="off" />
+                                        <textarea class="form-control @error('alamat') is-invalid @enderror" name="alamat" id="alamat" rows="3"
+                                            placeholder="Masukkan alamat siswa di sini..." autocomplete="off"></textarea>
                                         @error('alamat')
                                             <div class="invalid-feedback">
                                                 {{ $message }}
@@ -181,7 +186,7 @@
                                 <div class="row mb-3">
                                     <label class="col-sm-2 col-form-label">tahun masuk</label>
                                     <div class="col-md-10">
-                                        <select class="form-control" name="thn_masuk" id="thn_masuk">
+                                        <select class="form-control select2" name="thn_masuk" id="thn_masuk">
                                             <option value="" selected disabled>-- Pilih Tahun --</option>
                                             @foreach ($tapel as $t)
                                                 <option value="{{ $t->tahun . '-' . $t->semester }}">{{ $t->tahun }}
@@ -201,28 +206,31 @@
                                         </select>
                                     </div>
                                 </div>
-                                <div class="mb-3 row">
+                                {{-- <div class="mb-3 row">
                                     <label class="col-md-2 col-form-label">Status</label>
                                     <div class="col-md-10">
                                         <div class="form-check form-check-inline">
                                             <input name="status"
                                                 class="form-check-input
-                      @error('status')
-                        is-invalid
-                      @enderror"
+                                                    @error('status')
+                                                        is-invalid
+                                                    @enderror"
                                                 type="radio" value="aktif"
                                                 {{ old('status') == 'aktif' ? 'checked=' . '"' . 'checked' . '"' : '' }}>
                                             <label class="form-check-label">Aktif</label>
                                         </div>
-                                        {{-- <div class="form-check form-check-inline">
-                      <input name="status" class="form-check-input
-                      @error('status')
-                        is-invalid
-                      @enderror" type="radio" value="non-aktif" {{ old('status')=="non-aktif" ? 'checked='.'"'.'checked'.'"' : '' }}>
-                      <label class="form-check-label">Non-Aktif</label>
-                    </div> --}}
+                                        <div class="form-check form-check-inline">
+                                            <input name="status"
+                                                class="form-check-input
+                                                    @error('status')
+                                                        is-invalid
+                                                    @enderror"
+                                                type="radio" value="non-aktif"
+                                                {{ old('status') == 'non-aktif' ? 'checked=' . '"' . 'checked' . '"' : '' }}>
+                                            <label class="form-check-label">Non-Aktif</label>
+                                        </div>
                                     </div>
-                                </div>
+                                </div> --}}
                                 <div class="mb-3 row">
                                     <label class="col-md-2 col-form-label">Foto</label>
                                     <div class="col-md-10">

@@ -24,13 +24,31 @@ class BendaharaDataSiswaController extends Controller
             $username = strtolower(Str::random(6));
         }
         $siswa = DB::table('siswas')
+            ->select(
+            'siswas.id AS siswa_id',
+            'siswas.user_id',
+            'siswas.NIS',   
+            'siswas.nama_lengkap',
+            'siswas.nama_wali',
+            'siswas.no_hp',
+            'siswas.jk',
+            'siswas.tempat_lahir',
+            'siswas.tgl_lahir',
+            'siswas.agama',
+            'siswas.alamat',
+            'siswas.thn_masuk',
+            'siswas.status',
+            'siswas.image',
+            'kelas.id AS kelas_id',
+            'kelas.tingkat',
+            'users.username'
+            )
             ->join('users', 'siswas.user_id', '=', 'users.id')
+            ->leftJoin('kelas', 'siswas.kelas_id', '=', 'kelas.id')
             ->where('users.role_id', '=', '2')
-            ->select('*',
-            'siswas.id')
             ->orderBy('siswas.id', 'DESC')
             ->get();
-
+            
         return view('u_bendahara.siswa.data-siswa', compact('siswa','username'));
     }
 
@@ -44,10 +62,10 @@ class BendaharaDataSiswaController extends Controller
     public function store(Request $request)
     {
         $request->validate([
-            'nis' => 'required',
+            'nis' => 'required|numeric',
             'nama_lengkap' => 'required',
             'nama_wali' => 'required',
-            'agama' => 'required',
+            // 'agama' => 'required',
             'no_hp' => 'required|numeric|digits_between:11,13',
             'tempat_lahir' => 'required',
             'tgl_lahir' => 'required',
@@ -55,22 +73,25 @@ class BendaharaDataSiswaController extends Controller
             'alamat' => 'required',
             'thn_masuk' => 'required',
             'kelas' => 'required',
-            'status' => 'required',
-            'image' => 'nullable|image|mimes:jpeg,jpg,png|max:2000',
+            // 'status' => 'required',
+            'image' => 'nullable|image|mimes:jpeg,jpg,png|max:1000',
         ],
         [
             'nis.required' => 'NIS harus diisi.',
+            'nis.numeric' => 'Inputan harus berupa angka.',
             'nama_lengkap.required' => 'Nama lengkap harus diisi.',
             'nama_wali.required' => 'Nama wali tidak boleh kosong.',
-            'agama.required' => 'Agama harus diisi.',
+            // 'agama.required' => 'Agama harus diisi.',
             'no_hp.required' => 'No telepon harus diisi.',
+            'no_hp.numeric' => 'No telepon harus angka.',
+            'no_hp.digits_between' => 'No telepon diisi dengan panjang 11-13 angka.',
             'tempat_lahir.required' => 'Tempat lahir harus diisi.',
-            'tgl_lahir.required' => 'Tanggal lahir harus diisi,',
+            'tgl_lahir.required' => 'Tanggal lahir harus diisi.',
             'jk.required'=> 'Jenis kelamin harus diisi.',
             'alamat.required' => 'Alamat harus diisi.',
-            'thn_masuk.required' => 'Harus memilih tahun masuk',
-            'kelas.required' => 'Harus memilih kelas,',
-            'status.required' => 'Status harus diisi.',
+            'thn_masuk.required' => 'Harus memilih tahun masuk.',
+            'kelas.required' => 'Harus memilih kelas.',
+            // 'status.required' => 'Status harus diisi.',
         ]);
         
         $data = $request->all();
@@ -90,11 +111,11 @@ class BendaharaDataSiswaController extends Controller
             $siswa->jk = $data['jk'];
             $siswa->tempat_lahir = $data['tempat_lahir'];
             $siswa->tgl_lahir = $data['tgl_lahir'];
-            $siswa->agama = $data['agama'];
+            $siswa->agama = 'Islam';
             $siswa->alamat = $data['alamat'];
             $siswa->thn_masuk = $data['thn_masuk'];
-            $siswa->kelas = $data['kelas'];
-            $siswa->status = $data['status'];
+            $siswa->kelas_id = $data['kelas'];
+            $siswa->status = 'Aktif';
             // dd($siswa);
             $siswa->save();
         } else {
@@ -116,11 +137,11 @@ class BendaharaDataSiswaController extends Controller
             $siswa->jk = $data['jk'];
             $siswa->tempat_lahir = $data['tempat_lahir'];
             $siswa->tgl_lahir = $data['tgl_lahir'];
-            $siswa->agama = $data['agama'];
+            $siswa->agama = 'Islam';
             $siswa->alamat = $data['alamat'];
             $siswa->thn_masuk = $data['thn_masuk'];
-            $siswa->kelas = $data['kelas'];
-            $siswa->status = $data['status'];
+            $siswa->kelas_id = $data['kelas'];
+            $siswa->status = 'Aktif';
             $siswa->image = $image->hashName();
             $siswa->save();
         }

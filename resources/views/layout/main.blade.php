@@ -80,6 +80,12 @@
                             <div>Beranda</div>
                         </a>
                     </li>
+                    <li class="menu-item {{ $active == 'data-sekolah' ? 'active' : '' }}">
+                        <a href="{{ route('bendahara.profil.sekolah') }}" class="menu-link">
+                            <i class="menu-icon tf-icons bx bxs-home"></i>
+                            <div>Profil Sekolah</div>
+                        </a>
+                    </li>
                     <li class="menu-item {{ $active == 'thn-pelajaran' ? 'active' : '' }}">
                         <a href="{{ route('bendahara.tahun-pelajaran') }}" class="menu-link">
                             <i class='menu-icon tf-icons bx bxs-graduation'></i>
@@ -89,7 +95,7 @@
                     @if (Auth::user()->role_id == 1)
                         <li class="menu-item {{ $active == 'data-kelas' ? 'active' : '' }}">
                             <a href="{{ route('bendahara.data.kelas') }}" class="menu-link">
-                                <i class="menu-icon tf-icons bx bxs-user-detail"></i>
+                                <i class='menu-icon tf-icons bx bxs-collection'></i>
                                 <div>Data Kelas</div>
                             </a>
                         </li>
@@ -101,11 +107,28 @@
                             </a>
                         </li>
 
-                        <li class="menu-item {{ $active == 'data-guru' ? 'active' : '' }}">
-                            <a href="{{ route('bendahara.data.guru') }}" class="menu-link">
+                        <li class="menu-item">
+                            <a href="" class="menu-link menu-toggle">
                                 <i class="menu-icon tf-icons bx bxs-user-check"></i>
-                                <div>Data Wali Kelas</div>
+                                <div>Data Pegawai</div>
                             </a>
+                            <ul class="menu-sub">
+                                <li class="menu-item {{ $active == 'kepalaSekolah' ? 'active' : '' }}">
+                                    <a href="{{ route('bendahara.detail.kepsek') }}" class="menu-link">
+                                        <i class="menu-icon tf-icons bx bxs-user-check"></i>
+                                        <div>Kepala Sekolah</div>
+                                    </a>
+                                </li>
+                            </ul>
+                            <ul class="menu-sub">
+                                <li class="menu-item {{ $active == 'data-guru' ? 'active' : '' }}">
+                                    <a href="{{ route('bendahara.data.guru') }}" class="menu-link">
+                                        <i class="menu-icon tf-icons bx bxs-user-check"></i>
+                                        <div>Wali Kelas</div>
+                                    </a>
+                                </li>
+                            </ul>
+
                         </li>
 
                         <li class="menu-item {{ $active == 'jenis-trans' ? 'active' : '' }}">
@@ -254,7 +277,9 @@
                                     </li>
                                     <li>
                                         <a class="dropdown-item {{ $active == 'ubah-profil' ? 'active' : '' }}"
-                                            href="#">
+                                            @if (Auth::user()->role_id == 1 || Auth::user()->role_id == 3 || Auth::user()->role_id == 4) href = "{{ route('pegawai.ubah.profil') }}"
+                                            href="{{ route('pegawai.ubah.profil') }}" 
+                                            @elseif (Auth::user()->role_id == 2) href="{{ route('siswa.ubah.profil') }}" @endif>
                                             <i class="bx bx-user me-2"></i>
                                             <span class="align-middle">Profil</span>
                                         </a>
@@ -338,10 +363,20 @@
     {{-- <script src="sweetalert2.all.min.js"></script> --}}
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
+    <!-- jQuery -->
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <!-- Select2 CSS -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.13/css/select2.min.css" rel="stylesheet" />
+    <!-- Select2 JS -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.13/js/select2.min.js"></script>
+
+
 
     {{-- <script src="../../../assets/vendor/libs/bootstrap-datepicker/bootstrap-datepicker.js"></script> --}}
     {{-- <script src="../../../assets/vendor/libs/flatpickr/flatpickr.js"></script> --}}
 
+
+    {{-- punya kelas --}}
     <script type="text/javascript">
         var table = new DataTable('#classTable', {
             lengthChange: false,
@@ -362,6 +397,14 @@
             },
         });
     </script>
+
+    <script type="text/javascript">
+        $(document).ready(function() {
+            $('.select2').select2();
+        });
+    </script>
+
+
 </body>
 
 </html>
